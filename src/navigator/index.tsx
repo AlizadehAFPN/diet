@@ -15,14 +15,15 @@ const auth: loginInterface = {
 };
 
 const AppNavigator = () => {
-
   const dispatch = useDispatch();
 
   useQuery('getToken', () => tempLogin(auth), {
     onSuccess: (data: authState) => {
       dispatch(setToken(data?.token));
     },
-    onError: error => { console.log(error) },
+    onError: error => {
+      console.log(error);
+    },
   });
 
   return (

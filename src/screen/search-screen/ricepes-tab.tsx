@@ -11,33 +11,36 @@ import {colors} from '../../Styles';
 import {useDispatch, useSelector} from 'react-redux';
 import {setRecipesTags} from '../../redux/search-slice';
 import {FlashList} from '@shopify/flash-list';
-import { storeInterface } from '../../Interface';
+import {storeInterface} from '../../Interface';
 
 export function RicepesTab() {
   const dispatch = useDispatch();
-  const token : string = useSelector((state: storeInterface) => state.auth.token);
-
-  console.log(token , '----state-----');
+  const token: string = useSelector(
+    (state: storeInterface) => state.auth.token,
+  );
 
   const renderItem = ({index}: {index: number}) => (
     <RicepeItem key={String(index + 50)} />
   );
 
-  const {recipesTags} = useSelector((s: any) => s.search);
+  const {recipesTags} = useSelector((s: storeInterface) => s.search);
 
-  const onSelect = (label: any) => {
-    dispatch(setRecipesTags(recipesTags.filter((item: any) => item !== label)));
+  const onSelect = (label: string) => {
+    const selectedItem: (string | undefined)[] = recipesTags.filter(
+      (item?: string) => item !== label,
+    );
+    dispatch(setRecipesTags(selectedItem));
   };
-  
+
   return (
     <View style={styles.container}>
       <View style={styles.cart}>
         <Screen unsafe style={styles.screenContainer}>
           <Divider />
           <View style={styles.fc}>
-            {recipesTags.map((item: any, index: number) => (
+            {recipesTags.length>0 && recipesTags.map((item?: string, index?: number) => (
               <FilterBadgeClose
-                key={String(index + 90)}
+                key={String(index)}
                 onSelect={onSelect}
                 label={item}
               />
