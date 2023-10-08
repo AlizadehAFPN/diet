@@ -11,16 +11,24 @@ import {colors} from '../../Styles';
 import {useDispatch, useSelector} from 'react-redux';
 import {setRecipesTags} from '../../redux/search-slice';
 import {FlashList} from '@shopify/flash-list';
+import { storeInterface } from '../../Interface';
 
 export function RicepesTab() {
+  const dispatch = useDispatch();
+  const token : string = useSelector((state: storeInterface) => state.auth.token);
+
+  console.log(token , '----state-----');
+
   const renderItem = ({index}: {index: number}) => (
     <RicepeItem key={String(index + 50)} />
   );
-  const dispatch = useDispatch();
+
   const {recipesTags} = useSelector((s: any) => s.search);
+
   const onSelect = (label: any) => {
     dispatch(setRecipesTags(recipesTags.filter((item: any) => item !== label)));
   };
+  
   return (
     <View style={styles.container}>
       <View style={styles.cart}>

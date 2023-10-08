@@ -1,8 +1,6 @@
 // useSearch.ts
 
-import {CarInfo} from '../Interface';
-
-export const useSearch = (data: CarInfo[]) => {
+export const useSearch = (data: any[]) => {
   const search = (query: string) => {
     if (!query) {
       return data; // Return the original data if the query is empty

@@ -2,8 +2,7 @@ import axios, {AxiosInstance} from 'axios';
 import {Platform} from 'react-native';
 
 // Define the base URL based on the platform
-const baseURL: string =
-  Platform.OS === 'android' ? 'http://10.0.2.2:8485' : 'http://localhost:8485';
+const baseURL: string = 'https://ddapi.prod.dietdoctor.com/'
 
 // Create a custom Axios instance with specific typings
 const axiosInstance: AxiosInstance = axios.create({
