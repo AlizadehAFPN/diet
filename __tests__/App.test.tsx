@@ -1,30 +1,60 @@
-import MockAdapter from 'axios-mock-adapter';
-import { tempLogin } from '../src/services';
+import React from 'react';
+import { RicepeItem } from '../src/component/ricepe-item/ricepe-item';
 import axiosInstance from '../src/services/axiosConfig';
+import { render } from '@testing-library/react-native';
+import { Text } from '../src/component/text/text';
 
-// Import your function that makes the API request
+const correctData = {
+  username: 'stas.testuser1@dietdoctor.com',
+  password: 'C5(Pg5qwrwP^(WJ!eS%d38FI',
+};
 
-// Create a mock instance
-const mock = new MockAdapter(axiosInstance);
+const wrongData = {
+  username: 'testuser1@dietdoctor.com',
+  password: 'qwrwP^(WJ!eS%d38FI',
+};
 
-// Mock a successful response with status code 200
-const mockUsername = 'stas.testufwfweser1@dietdoctor.com';
-const mockPassword = 'C5(Pg5qwrfwfwP^(WJ!eS%d38FI';
-mock.onPost('https://ddapi.prod.dietdoctor.com/auth/token').reply((config) => {
-  console.log(config , 'config')
-  const requestData = JSON.parse(config.data); // Parse the request data
-  if (
-    requestData.username === mockUsername &&
-    requestData.password === mockPassword
-  ) {
-    return [200, { data: 'Your data' }];
-  } else {
-    return [401]; // Unauthorized status code for incorrect credentials
+test('API POST request with correct credentials returns status code 200', async () => {
+  const response = await axiosInstance.post('auth/token', correctData);
+  expect(response.status).toBe(200);
+});
+
+test('API POST request with wrong credentials returns status code 401', async () => {
+  try {
+    await axiosInstance.post('auth/token', wrongData);
+    // If the request succeeds with incorrect credentials, fail the test
+    fail('API request should have raised an error');
+  } catch (error: any) {
+    // Check the error message or status code as needed
+    expect(error.response.status).toBe(401); // Expect a 401 Unauthorized status code
   }
 });
-// Your test
-test('API POST request returns status code 200', async () => {
-  const response = await tempLogin({username:mockUsername, password:mockPassword}); // Use the same values as the mock
-  console.log(response.data , 'response')
-  // expect(response.status).toBe(200);
+
+describe('Text component', () => {
+  it('applies the default preset if none is provided', () => {
+    const { getByText } = render(<Text text="Hello, World!" />);
+    const textElement = getByText('Hello, World!');
+    expect(textElement.props.style).toEqual(
+      expect.arrayContaining([
+        { color: 'black', fontSize: 13 }, // Update the expected fontSize here
+        { color: 'black', fontSize: undefined, marginHorizontal: undefined },
+        undefined,
+      ])
+    );
+  });
+  
+  it('applies the specified preset', () => {
+    const { getByText } = render(<Text text="Hello, World!" preset="header" />);
+    const textElement = getByText('Hello, World!');
+    expect(textElement.props.style).toEqual(
+      expect.arrayContaining([
+        { color: 'black', fontSize: 30 }, // Update the expected fontSize here
+        { color: 'black', fontSize: undefined, marginHorizontal: undefined },
+        undefined,
+      ])
+    );
+  });
+  
 });
+
+

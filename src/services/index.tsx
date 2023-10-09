@@ -9,3 +9,12 @@ export const tempLogin = async (data: loginInterface): Promise<any> => {
     throw error;
   }
 };
+
+export const testTempLogin = async (data: loginInterface): Promise<any> => {
+  try {
+    const response = await axiosInstance.post('auth/token', data);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

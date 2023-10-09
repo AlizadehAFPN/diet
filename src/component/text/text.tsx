@@ -20,9 +20,6 @@ export function Text(props: TextProps) {
     ...rest
   } = props;
 
-  // figure out which content to use
-  // const i18nText = tx //&& translate(tx, txOptions)
-  // const i18nChild = children&& typeof children == 'string'? translate(children, txOptions):children
   const content = text || children;
 
   const style = presets[preset] || presets.default;
