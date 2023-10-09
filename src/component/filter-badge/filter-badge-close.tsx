@@ -1,16 +1,15 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React from 'react';
-import {Button, Text} from '../';
-// import CloseIcon from '../../assets/svg/close-out.svg'
+import {Text} from '../';
+import  Icon  from 'react-native-vector-icons/AntDesign';
 export function FilterBadgeClose({label, onSelect}: any) {
-  //   const isSelected = useMemo(()=> selected?.find(item=> item==label), [selected])
   return (
-    <Button onPress={() => onSelect(label)} style={{...styles.badge}}>
+    <View style={{...styles.badge}}>
       <Text style={styles.txt} color={'white'}>
         {label}
       </Text>
-      {/* <CloseIcon fill="white" width={20} height={20} /> */}
-    </Button>
+      <Icon onPress={() => onSelect(label) } name="close" size={18} color="white" />
+    </View>
   );
 }
 

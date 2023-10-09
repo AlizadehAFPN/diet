@@ -18,6 +18,8 @@ export function RicepesTab() {
   const token: string = useSelector(
     (state: storeInterface) => state.auth.token,
   );
+  
+  console.log(token , '----token----');
 
   const renderItem = ({index}: {index: number}) => (
     <RicepeItem key={String(index + 50)} />

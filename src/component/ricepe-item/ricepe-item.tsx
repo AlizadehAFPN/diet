@@ -2,8 +2,8 @@ import {Dimensions, Image, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Row, Button, Text, Divider} from '../';
 import {colors} from '../../Styles';
-// import HDots from '../../assets/svg/hdots.svg'
-// import ClockIcon from '../../assets/svg/clock.svg'
+import  Icon  from 'react-native-vector-icons/AntDesign';
+
 const {width} = Dimensions.get('window');
 
 export function RicepeItem() {
@@ -18,7 +18,7 @@ export function RicepeItem() {
         />
         <View style={styles.outerBadge}>
           <View style={styles.innerBadge}>
-            <Text size={10} color="white">
+            <Text size={10} color="black">
               13g
             </Text>
           </View>
@@ -30,7 +30,7 @@ export function RicepeItem() {
         </Text>
         <Divider height={8} />
         <Row>
-          {/* <ClockIcon style={{marginRight: 5}} fill={colors.gray3} width={18} height={18} /> */}
+        <Icon name="clockcircle" style={styles.iconClock} size={18} color={colors.gray3} />
           <Text size={10} color={colors.gray3}>
             30 min
           </Text>
@@ -41,7 +41,7 @@ export function RicepeItem() {
         </Row>
       </View>
       <Button style={styles.moreButton}>
-        {/* <HDots width={18} height={18} /> */}
+      <Icon name="ellipsis1" size={18} color={colors.gray3} />
       </Button>
     </Row>
   );
@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
   },
+  iconClock:{marginRight: 8},
   img: {width: '100%', height: '100%'},
   imgContainer: {
     width: width / 3,

@@ -1,6 +1,7 @@
 #import "AppDelegate.h"
 
 #import <React/RCTBundleURLProvider.h>
+#import "MyTextInputView.h" // Import your native module header
 
 @implementation AppDelegate
 
