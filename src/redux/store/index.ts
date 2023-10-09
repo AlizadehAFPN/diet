@@ -1,7 +1,9 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import searchSlice from '../search-slice';
+import authSlice from '../authSlice';
 const rootReducer = combineReducers({
   search: searchSlice,
+  auth: authSlice,
 });
 
 const store = configureStore({

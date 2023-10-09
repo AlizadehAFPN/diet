@@ -4,7 +4,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 // We don't need flexible type so we don't use <T>
 
-interface SearchState {
+export interface SearchState {
   recipesTags: [string?];
   mealsTags: [string?];
 }

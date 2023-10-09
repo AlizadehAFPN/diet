@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Screen, TopTabBar} from '../../component';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {RicepesTab} from './ricepes-tab';
@@ -6,7 +6,11 @@ import {MealPlansTab} from './meal-plans-tab';
 import {StyleSheet} from 'react-native';
 
 const Stack = createMaterialTopTabNavigator();
-const pages = [
+interface page {
+  name: string;
+  component: FC;
+}
+const pages: page[] = [
   {name: 'ricepes', component: RicepesTab},
   {name: 'meal', component: MealPlansTab},
 ];
@@ -18,7 +22,7 @@ export function SearchScreen() {
         style={styles.stack}
         backBehavior="none"
         tabBar={props => <TopTabBar {...props} />}>
-        {pages.map(item => (
+        {pages.map((item: page) => (
           <Stack.Screen {...item} key={item.name} />
         ))}
       </Stack.Navigator>
