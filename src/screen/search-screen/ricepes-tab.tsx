@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import { StyleSheet, View, Animated, Easing } from 'react-native'; // Import Animated and Easing
 import {
   Divider,
   FilterBadgeClose,
@@ -22,7 +22,7 @@ export function RicepesTab() {
   );
 
   const renderItem = ({index}: {index: number}) => (
-    <RicepeItem key={String(index + 50)} />
+    <RicepeItem key={String(index + 50)} index1={index} />
   );
 
   const {recipesTags} = useSelector((s: RootState) => s.search);
