@@ -2,20 +2,26 @@ import {StyleSheet} from 'react-native';
 import React, {useMemo} from 'react';
 import {colors} from '../../Styles';
 import {Button, Text} from '../';
+import { tag } from '../../Interface';
 
-export function FilterBadge({label, selected, onSelect}: any) {
+interface FilterBadgePrp{
+  item: tag,
+  selected: [tag]
+  onSelect: (item: tag)=> void
+}
+export function FilterBadge({item, selected, onSelect}: FilterBadgePrp) {
   const isSelected = useMemo(
-    () => selected?.find((item: any) => item === label),
-    [selected, label], // Include 'label' in the dependency array
+    () => selected?.find((elem: tag) => item.id === elem.id),
+    [selected, item], // Include 'label' in the dependency array
   );
   return (
     <Button
-      onPress={() => onSelect(label)}
+      onPress={() => onSelect(item)}
       style={{
         ...styles.badge,
         backgroundColor: isSelected ? 'black' : colors.gray2,
       }}>
-      <Text color={isSelected ? 'white' : 'black'}>{label}</Text>
+      <Text color={isSelected ? 'white' : 'black'}>{item.title}</Text>
     </Button>
   );
 }

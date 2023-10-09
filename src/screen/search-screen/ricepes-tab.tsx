@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import {
   Divider,
   FilterBadgeClose,
@@ -9,11 +9,12 @@ import {
 } from '../../component';
 import { colors } from '../../Styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { setRecipesTags } from '../../redux/search-slice';
+import { setRecipesModal, setRecipesTags } from '../../redux/search-slice';
 import { FlashList } from '@shopify/flash-list';
-import { storeInterface } from '../../Interface';
+import { Recipe, storeInterface, tag } from '../../Interface';
 import { useQuery } from '@apollo/client';
 import { GetRecipes } from '../../services/graphQluries';
+import { FilterModal } from './filter-modal';
 
 export function RicepesTab() {
   const dispatch = useDispatch();
@@ -23,15 +24,15 @@ export function RicepesTab() {
 
   console.log(token, '----token----');
 
-  const renderItem = ({ index }: { index: number }) => (
-    <RicepeItem key={String(index + 50)} />
+  const renderItem = ({ item, index }: { item: Recipe, index: number }) => (
+    <RicepeItem item={item} key={String(index + 50)} />
   );
 
-  const { recipesTags } = useSelector((s: storeInterface) => s.search);
+  const { recipesTags, recipesModal } = useSelector((s: storeInterface) => s.search);
 
-  const onSelect = (label: string) => {
-    const selectedItem: (string | undefined)[] = recipesTags.filter(
-      (item?: string) => item !== label,
+  const onSelect = (label: tag) => {
+    const selectedItem: tag[] = recipesTags.filter(
+      (item: tag) => item?.id !== label?.id,
     );
     dispatch(setRecipesTags(selectedItem));
   };
@@ -39,41 +40,91 @@ export function RicepesTab() {
   const { loading, error, data, refetch, fetchMore, client } = useQuery(GetRecipes, {
     variables: {
       page: 1,
-      pageSize: 20,
+      pageSize: 50,
+      tagFilters: [],
+      premiumOnly: false,
+      includePremiumPreview: false,
     },
   })
 
-  if(data)console.log(data, 'data===')
-  if(error)console.log(error, 'erorooo')
+  const onEndReached = () => {
+    if (data?.listRecipes?.nextPage) {
+      fetchMore({
+        variables: {
+          page: data?.listRecipes?.nextPage,
+          pageSize: 50,
+          tagFilters: [],
+          premiumOnly: false,
+          includePremiumPreview: false,
+        },
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+          // Don't do anything if there weren't any new items
+          if (!fetchMoreResult || fetchMoreResult.listRecipes.recipes === 0) {
+            return previousResult;
+          } return {
+            // Append the new feed results to the old one
+            ...fetchMoreResult,
+            listRecipes: {
+              ...fetchMoreResult.listRecipes,
+              recipes: previousResult.listRecipes.recipes.concat(fetchMoreResult.listRecipes.recipes),
+            }
+
+          };
+        },
+      })
+    }
+  }
+  useEffect(() => {
+    refetch({
+      page: 1,
+      pageSize: 50,
+      tagFilters: recipesTags.map(item=> item?.id),
+      premiumOnly: false,
+      includePremiumPreview: false,
+    })
+  }, [recipesTags])
+
+  const handleCloseModal = ()=>{
+    dispatch(setRecipesModal(false))
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.cart}>
-        <Screen unsafe style={styles.screenContainer}>
+        <Screen withoutScroll unsafe style={styles.screenContainer}>
           <Divider />
           <View style={styles.fc}>
-            {recipesTags.length > 0 && recipesTags.map((item?: string, index?: number) => (
+            {recipesTags.length > 0 && recipesTags.map((item: tag) => (
               <FilterBadgeClose
-                key={String(index)}
+                key={item.id}
                 onSelect={onSelect}
-                label={item}
+                item={item}
               />
             ))}
           </View>
           <FlashList
+            onEndReached={onEndReached}
+            onEndReachedThreshold={50}
             contentContainerStyle={styles.flashStyle}
             renderItem={renderItem}
             estimatedItemSize={160}
-            keyExtractor={index => String(index + 70)}
+            keyExtractor={item => item.id}
             ListHeaderComponent={
               <View>
-                <Text color={colors.gray3}>75 recipe</Text>
+                {loading? <ActivityIndicator /> :<Text color={colors.gray3}>{data?.listRecipes?.totalSize} recipe</Text>}
               </View>
             }
-            data={[1, 2, 3, 4, 5, 6, 7]}
+            data={data?.listRecipes?.recipes}
           />
         </Screen>
       </View>
+      <FilterModal
+        visible={recipesModal}
+        resultNumbs={data?.listRecipes?.totalSize}
+        type="recipes"
+        onClose={handleCloseModal}
+        loading={loading}
+      />
     </View>
   );
 }

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+
 import React, { ReactNode } from 'react'
 import { ApolloProvider } from '@apollo/client';
 import { graphqlInstance } from '../../services/graphqlConfig';
@@ -12,5 +12,3 @@ export function GraphQlProvider({children} :GraphQlProviderPrps) {
         </ApolloProvider>
     )
 }
-
-const styles = StyleSheet.create({})

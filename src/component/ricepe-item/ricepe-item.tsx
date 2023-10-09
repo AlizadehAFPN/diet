@@ -3,17 +3,21 @@ import React from 'react';
 import {Row, Button, Text, Divider} from '../';
 import {colors} from '../../Styles';
 import  Icon  from 'react-native-vector-icons/AntDesign';
+import FastImage from 'react-native-fast-image';
+import { Recipe } from '../../Interface';
 
 const {width} = Dimensions.get('window');
-
-export function RicepeItem() {
+interface RicepeItemPrp{
+  item: Recipe
+}
+export function RicepeItem({item}: RicepeItemPrp) {
   return (
     <Row style={styles.container}>
       <View style={styles.imgContainer}>
-        <Image
+        <FastImage
           style={styles.img}
           source={{
-            uri: 'https://cookingwithbliss.com/wp-content/uploads/2020/02/cast-iron-skillet-chicken-breast-6.jpg',
+            uri: `https://i.dietdoctor.com${item.images.hz}`,
           }}
         />
         <View style={styles.outerBadge}>
@@ -26,17 +30,17 @@ export function RicepeItem() {
       </View>
       <View style={styles.middelview}>
         <Text size={25} numberOfLines={2}>
-          skillet chicken breast with cherry tomatoes
+          {item.title}
         </Text>
         <Divider height={8} />
         <Row>
         <Icon name="clockcircle" style={styles.iconClock} size={18} color={colors.gray3} />
           <Text size={10} color={colors.gray3}>
-            30 min
+            {item.time?.preparation} min
           </Text>
           <View style={styles.line} />
           <Text size={10} color={colors.gray3}>
-            Easy
+            {item?.difficulty?.rating}
           </Text>
         </Row>
       </View>
@@ -54,13 +58,13 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   iconClock:{marginRight: 8},
-  img: {width: '100%', height: '100%'},
+  img: {width: width / 3, height: width / 3},
   imgContainer: {
     width: width / 3,
     aspectRatio: 1,
     borderRadius: 5,
     overflow: 'hidden',
-    backgroundColor: colors.gray2,
+    // backgroundColor: colors.gray2,
   },
   middelview: {
     flex: 1,
