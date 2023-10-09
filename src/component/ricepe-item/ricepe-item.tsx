@@ -34,7 +34,12 @@ export function RicepeItem({item}: RicepeItemPrp) {
         </Text>
         <Divider height={8} />
         <Row>
-        <Icon name="clockcircle" style={styles.iconClock} size={18} color={colors.gray3} />
+          <Icon
+            name="clockcircle"
+            style={styles.iconClock}
+            size={18}
+            color={colors.gray3}
+          />
           <Text size={10} color={colors.gray3}>
             {item.time?.preparation} min
           </Text>
@@ -45,7 +50,7 @@ export function RicepeItem({item}: RicepeItemPrp) {
         </Row>
       </View>
       <Button style={styles.moreButton}>
-      <Icon name="ellipsis1" size={18} color={colors.gray3} />
+        <Icon name="ellipsis1" size={18} color={colors.gray3} />
       </Button>
     </Row>
   );

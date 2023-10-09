@@ -1,7 +1,7 @@
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Text} from '../';
-import  Icon  from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/AntDesign';
 import { tag } from '../../Interface';
 
 interface FilterBadgePrp{
@@ -9,13 +9,17 @@ interface FilterBadgePrp{
   onSelect: (item: tag)=> void
 }
 export function FilterBadgeClose({item, onSelect}:FilterBadgePrp ) {
- 
   return (
     <View style={{...styles.badge}}>
       <Text style={styles.txt} color={'white'}>
         {item.title}
       </Text>
-      <Icon onPress={() => onSelect(item) } name="close" size={18} color="white" />
+      <Icon
+        onPress={() => onSelect(item)}
+        name="close"
+        size={18}
+        color="white"
+      />
     </View>
   );
 }

@@ -15,11 +15,12 @@ import { Recipe, storeInterface, tag } from '../../Interface';
 import { useQuery } from '@apollo/client';
 import { GetRecipes } from '../../services/graphQluries';
 import { FilterModal } from './filter-modal';
+import { RootState } from '../../redux/store';
 
 export function RicepesTab() {
   const dispatch = useDispatch();
   const token: string = useSelector(
-    (state: storeInterface) => state.auth.token,
+    (state: RootState) => state.auth.token,
   );
 
   console.log(token, '----token----');
@@ -28,8 +29,7 @@ export function RicepesTab() {
     <RicepeItem item={item} key={String(index + 50)} />
   );
 
-  const { recipesTags, recipesModal } = useSelector((s: storeInterface) => s.search);
-
+  const { recipesTags, recipesModal } = useSelector((s: RootState) => s.search);
   const onSelect = (label: tag) => {
     const selectedItem: tag[] = recipesTags.filter(
       (item: tag) => item?.id !== label?.id,
@@ -37,7 +37,8 @@ export function RicepesTab() {
     dispatch(setRecipesTags(selectedItem));
   };
 
-  const { loading, error, data, refetch, fetchMore, client } = useQuery(GetRecipes, {
+  const { loading, error, data, refetch, fetchMore, client } = useQuery(
+    GetRecipes, {
     variables: {
       page: 1,
       pageSize: 50,
@@ -78,13 +79,13 @@ export function RicepesTab() {
     refetch({
       page: 1,
       pageSize: 50,
-      tagFilters: recipesTags.map(item=> item?.id),
+      tagFilters: recipesTags.map((item: tag) => item?.id),
       premiumOnly: false,
       includePremiumPreview: false,
     })
   }, [recipesTags])
 
-  const handleCloseModal = ()=>{
+  const handleCloseModal = () => {
     dispatch(setRecipesModal(false))
   }
 
@@ -94,14 +95,16 @@ export function RicepesTab() {
         <Screen withoutScroll unsafe style={styles.screenContainer}>
           <Divider />
           <View style={styles.fc}>
-            {recipesTags.length > 0 && recipesTags.map((item: tag) => (
-              <FilterBadgeClose
-                key={item.id}
-                onSelect={onSelect}
-                item={item}
-              />
-            ))}
-          </View>
+            {
+              recipesTags.length > 0 && recipesTags.map((item: tag) => (
+                <FilterBadgeClose
+                  key={item.id}
+                  onSelect={onSelect}
+                  item={item}
+                />
+              ))
+            }
+          </View >
           <FlashList
             onEndReached={onEndReached}
             onEndReachedThreshold={50}
@@ -111,13 +114,13 @@ export function RicepesTab() {
             keyExtractor={item => item.id}
             ListHeaderComponent={
               <View>
-                {loading? <ActivityIndicator /> :<Text color={colors.gray3}>{data?.listRecipes?.totalSize} recipe</Text>}
+                {loading ? <ActivityIndicator /> : <Text color={colors.gray3}>{data?.listRecipes?.totalSize} recipe</Text>}
               </View>
             }
             data={data?.listRecipes?.recipes}
           />
-        </Screen>
-      </View>
+        </Screen >
+      </View >
       <FilterModal
         visible={recipesModal}
         resultNumbs={data?.listRecipes?.totalSize}
@@ -125,7 +128,7 @@ export function RicepesTab() {
         onClose={handleCloseModal}
         loading={loading}
       />
-    </View>
+    </View >
   );
 }
 

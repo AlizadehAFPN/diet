@@ -1,28 +1,25 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-
-// Define the initial state interface
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface authState {
   token: string;
 }
 
-// Define the initial state
 const initialState: authState = {
-  token: '',
+  token: '', // Initialize the token state
 };
 
-// Creating Redux slice
-const configSlice = createSlice({
+const authSlice = createSlice({
   name: 'auth',
-  initialState, // Use the defined initialState
+  initialState,
   reducers: {
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload;
     },
+    clearToken: (state) => {
+      state.token = ''; // Clear the token
+    },
   },
 });
 
-// Export action creators and reducer
-export const {setToken} = configSlice.actions;
-
-export default configSlice.reducer;
+export const { setToken, clearToken } = authSlice.actions;
+export default authSlice.reducer;
