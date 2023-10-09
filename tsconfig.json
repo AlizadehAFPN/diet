@@ -1,3 +1,11 @@
 {
-  "extends": "@tsconfig/react-native/tsconfig.json"
+  "compilerOptions": {
+    "target": "ES6", // Or a suitable target for your project
+    "module": "commonjs",
+    "esModuleInterop": true,
+    // ...
+  },
+  "extends": "@tsconfig/react-native/tsconfig.json",
+  "types": ["react", "react-native", "jest"]
+
 }
