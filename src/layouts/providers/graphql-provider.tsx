@@ -1,16 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { ReactNode } from 'react'
-import { ApolloProvider } from '@apollo/client';
-import { graphqlInstance } from '../../services/graphqlConfig';
+import {StyleSheet, Text, View} from 'react-native';
+import React, {ReactNode} from 'react';
+import {ApolloProvider} from '@apollo/client';
+import {graphqlInstance} from '../../services/graphqlConfig';
 interface GraphQlProviderPrps {
-    children: ReactNode
+  children: ReactNode;
 }
-export function GraphQlProvider({children} :GraphQlProviderPrps) {
-    return (
-        <ApolloProvider client={graphqlInstance()}>
-            {children}
-        </ApolloProvider>
-    )
+export function GraphQlProvider({children}: GraphQlProviderPrps) {
+  return <ApolloProvider client={graphqlInstance()}>{children}</ApolloProvider>;
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

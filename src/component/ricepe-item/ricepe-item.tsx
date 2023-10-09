@@ -2,7 +2,7 @@ import {Dimensions, Image, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Row, Button, Text, Divider} from '../';
 import {colors} from '../../Styles';
-import  Icon  from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 const {width} = Dimensions.get('window');
 
@@ -30,7 +30,12 @@ export function RicepeItem() {
         </Text>
         <Divider height={8} />
         <Row>
-        <Icon name="clockcircle" style={styles.iconClock} size={18} color={colors.gray3} />
+          <Icon
+            name="clockcircle"
+            style={styles.iconClock}
+            size={18}
+            color={colors.gray3}
+          />
           <Text size={10} color={colors.gray3}>
             30 min
           </Text>
@@ -41,7 +46,7 @@ export function RicepeItem() {
         </Row>
       </View>
       <Button style={styles.moreButton}>
-      <Icon name="ellipsis1" size={18} color={colors.gray3} />
+        <Icon name="ellipsis1" size={18} color={colors.gray3} />
       </Button>
     </Row>
   );
@@ -53,7 +58,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
   },
-  iconClock:{marginRight: 8},
+  iconClock: {marginRight: 8},
   img: {width: '100%', height: '100%'},
   imgContainer: {
     width: width / 3,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {
   Divider,
   FilterBadgeClose,
@@ -7,13 +7,13 @@ import {
   Screen,
   Text,
 } from '../../component';
-import { colors } from '../../Styles';
-import { useDispatch, useSelector } from 'react-redux';
-import { setRecipesTags } from '../../redux/search-slice';
-import { FlashList } from '@shopify/flash-list';
-import { storeInterface } from '../../Interface';
-import { useQuery } from '@apollo/client';
-import { GetRecipes } from '../../services/graphQluries';
+import {colors} from '../../Styles';
+import {useDispatch, useSelector} from 'react-redux';
+import {setRecipesTags} from '../../redux/search-slice';
+import {FlashList} from '@shopify/flash-list';
+import {storeInterface} from '../../Interface';
+import {useQuery} from '@apollo/client';
+import {GetRecipes} from '../../services/graphQluries';
 
 export function RicepesTab() {
   const dispatch = useDispatch();
@@ -21,11 +21,11 @@ export function RicepesTab() {
     (state: storeInterface) => state.auth.token,
   );
 
-  const renderItem = ({ index }: { index: number }) => (
+  const renderItem = ({index}: {index: number}) => (
     <RicepeItem key={String(index + 50)} />
   );
 
-  const { recipesTags } = useSelector((s: storeInterface) => s.search);
+  const {recipesTags} = useSelector((s: storeInterface) => s.search);
 
   const onSelect = (label: string) => {
     const selectedItem: (string | undefined)[] = recipesTags.filter(
@@ -34,15 +34,22 @@ export function RicepesTab() {
     dispatch(setRecipesTags(selectedItem));
   };
 
-  const { loading, error, data, refetch, fetchMore, client } = useQuery(GetRecipes, {
-    variables: {
-      page: 1,
-      pageSize: 20,
+  const {loading, error, data, refetch, fetchMore, client} = useQuery(
+    GetRecipes,
+    {
+      variables: {
+        page: 1,
+        pageSize: 20,
+      },
     },
-  })
+  );
 
-  if(data)console.log(data, 'data===')
-  if(error)console.log(error, 'erorooo')
+  if (data) {
+    console.log(data, 'data===');
+  }
+  if (error) {
+    console.log(error, 'erorooo');
+  }
 
   return (
     <View style={styles.container}>
@@ -50,13 +57,14 @@ export function RicepesTab() {
         <Screen unsafe style={styles.screenContainer}>
           <Divider />
           <View style={styles.fc}>
-            {recipesTags.length > 0 && recipesTags.map((item?: string, index?: number) => (
-              <FilterBadgeClose
-                key={String(index)}
-                onSelect={onSelect}
-                label={item}
-              />
-            ))}
+            {recipesTags.length > 0 &&
+              recipesTags.map((item?: string, index?: number) => (
+                <FilterBadgeClose
+                  key={String(index)}
+                  onSelect={onSelect}
+                  label={item}
+                />
+              ))}
           </View>
           <FlashList
             contentContainerStyle={styles.flashStyle}
@@ -81,7 +89,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.lightGreen,
   },
-  flashStyle: { paddingHorizontal: 15 },
+  flashStyle: {paddingHorizontal: 15},
   cart: {
     flex: 1,
     borderTopLeftRadius: 25,

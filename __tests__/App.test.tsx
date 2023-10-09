@@ -1,8 +1,8 @@
 import React from 'react';
-import { RicepeItem } from '../src/component/ricepe-item/ricepe-item';
+import {RicepeItem} from '../src/component/ricepe-item/ricepe-item';
 import axiosInstance from '../src/services/axiosConfig';
-import { render } from '@testing-library/react-native';
-import { Text } from '../src/component/text/text';
+import {render} from '@testing-library/react-native';
+import {Text} from '../src/component/text/text';
 
 const correctData = {
   username: 'stas.testuser1@dietdoctor.com',
@@ -32,29 +32,26 @@ test('API POST request with wrong credentials returns status code 401', async ()
 
 describe('Text component', () => {
   it('applies the default preset if none is provided', () => {
-    const { getByText } = render(<Text text="Hello, World!" />);
+    const {getByText} = render(<Text text="Hello, World!" />);
     const textElement = getByText('Hello, World!');
     expect(textElement.props.style).toEqual(
       expect.arrayContaining([
-        { color: 'black', fontSize: 13 }, // Update the expected fontSize here
-        { color: 'black', fontSize: undefined, marginHorizontal: undefined },
+        {color: 'black', fontSize: 13}, // Update the expected fontSize here
+        {color: 'black', fontSize: undefined, marginHorizontal: undefined},
         undefined,
-      ])
+      ]),
     );
   });
-  
+
   it('applies the specified preset', () => {
-    const { getByText } = render(<Text text="Hello, World!" preset="header" />);
+    const {getByText} = render(<Text text="Hello, World!" preset="header" />);
     const textElement = getByText('Hello, World!');
     expect(textElement.props.style).toEqual(
       expect.arrayContaining([
-        { color: 'black', fontSize: 30 }, // Update the expected fontSize here
-        { color: 'black', fontSize: undefined, marginHorizontal: undefined },
+        {color: 'black', fontSize: 30}, // Update the expected fontSize here
+        {color: 'black', fontSize: undefined, marginHorizontal: undefined},
         undefined,
-      ])
+      ]),
     );
   });
-  
 });
-
-

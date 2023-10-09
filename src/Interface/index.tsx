@@ -1,5 +1,5 @@
 import {authState} from '../redux/authSlice';
-import { SearchState } from '../redux/search-slice';
+import {SearchState} from '../redux/search-slice';
 
 export type NavigatorParamList = {
   navigate(arg0: string): unknown;
@@ -14,5 +14,5 @@ export interface loginInterface {
 
 export interface storeInterface {
   auth: authState;
-  search:SearchState
+  search: SearchState;
 }
