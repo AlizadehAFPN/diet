@@ -11,21 +11,21 @@ import {colors} from '../../Styles';
 import {useDispatch, useSelector} from 'react-redux';
 import {setRecipesTags} from '../../redux/search-slice';
 import {FlashList} from '@shopify/flash-list';
-import {storeInterface} from '../../Interface';
 import {useQuery} from '@apollo/client';
 import {GetRecipes} from '../../services/graphQluries';
+import { RootState } from '../../redux/store';
 
 export function RicepesTab() {
   const dispatch = useDispatch();
   const token: string = useSelector(
-    (state: storeInterface) => state.auth.token,
+    (state: RootState) => state.auth.token,
   );
 
   const renderItem = ({index}: {index: number}) => (
     <RicepeItem key={String(index + 50)} />
   );
 
-  const {recipesTags} = useSelector((s: storeInterface) => s.search);
+  const {recipesTags} = useSelector((s: RootState) => s.search);
 
   const onSelect = (label: string) => {
     const selectedItem: (string | undefined)[] = recipesTags.filter(

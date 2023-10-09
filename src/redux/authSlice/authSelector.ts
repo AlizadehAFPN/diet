@@ -4,4 +4,4 @@ import { RootState } from '../store'; // Adjust the path as per your project str
 
 export const selectToken = (state: RootState) => state.auth.token;
 
-export const selectTokenExists = createSelector([selectToken], (token) => !!token);
+export const selectTokenExists = createSelector([selectToken], (token : string) => !!token);
