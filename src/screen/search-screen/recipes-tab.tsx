@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import React, { useCallback, useEffect} from 'react';
+import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native';
 import {
   Divider,
   FilterBadgeClose,
@@ -17,11 +17,13 @@ import { GetRecipes } from '../../services/graphQluries';
 import { FilterModal } from './filter-modal';
 import { RootState } from '../../redux/store';
 
-export function RicepesTab() {
+const {width} = Dimensions.get("window")
+export function RecipesTab() {
   const dispatch = useDispatch();
   const token: string = useSelector(
     (state: RootState) => state.auth.token,
   );
+
 
   console.log(token, '----token----');
 
@@ -89,10 +91,13 @@ export function RicepesTab() {
     dispatch(setRecipesModal(false))
   }
 
+  const ItemSeparatorComponent = useCallback(()=>
+    <View style={styles.divider} />
+  , [])
+
   return (
     <View style={styles.container}>
       <View style={styles.cart}>
-        <Screen withoutScroll unsafe style={styles.screenContainer}>
           <Divider />
           <View style={styles.fc}>
             {
@@ -118,8 +123,8 @@ export function RicepesTab() {
               </View>
             }
             data={data?.listRecipes?.recipes}
+            ItemSeparatorComponent={ItemSeparatorComponent}
           />
-        </Screen >
       </View >
       <FilterModal
         visible={recipesModal}
@@ -134,15 +139,14 @@ export function RicepesTab() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: colors.lightGreen,
+    width,
   },
-  flashStyle: { paddingHorizontal: 15 },
+  flashStyle: { 
+    paddingHorizontal: 15 ,
+    flex:1,
+  },
   cart: {
-    flex: 1,
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    overflow: 'hidden',
+    flex:1
   },
   screenContainer: {
     flex: 1,
@@ -153,4 +157,8 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     paddingHorizontal: 15,
   },
+  divider:{
+    height:1,
+    backgroundColor: colors.gray2
+  }
 });
