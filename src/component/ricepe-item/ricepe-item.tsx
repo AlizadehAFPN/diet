@@ -2,53 +2,26 @@ import {Animated, Dimensions, Easing, Image, StyleSheet, View} from 'react-nativ
 import React from 'react';
 import {Row, Button, Text, Divider} from '../';
 import {colors} from '../../Styles';
-import Icon from 'react-native-vector-icons/AntDesign';
+import  Icon  from 'react-native-vector-icons/AntDesign';
+import FastImage from 'react-native-fast-image';
+import { Recipe } from '../../Interface';
 
 const {width} = Dimensions.get('window');
-
-export function RicepeItem({index1}:{index1:number}) {
-  // const opacityValue = new Animated.Value(0); // Initialize opacity value
-
-  // React.useEffect(() => {
-  //   // Animate opacity when the component mounts
-  //   Animated.timing(opacityValue, {
-  //     toValue: 1,
-  //     duration: 1000, // Animation duration in milliseconds
-  //     easing: Easing.exp, // Easing function
-  //     useNativeDriver: true, // Use native driver for performance
-  //   }).start();
-  // }, []);
-  const animatedValues = React.useRef([1, 2, 3, 4, 5, 6, 7].map((_, index) => new Animated.Value(0))).current;
-
-  const animateItem = (index: number) => {
-    Animated.timing(animatedValues[index], {
-      toValue: 1,
-      duration: 500, // Adjust animation duration as needed
-      useNativeDriver: true,
-    }).start();
-  };
-
-  React.useEffect(() => {
-    [1, 2, 3, 4, 5, 6, 7].forEach((_: any, index: number) => {
-      setTimeout(() => {
-        animateItem(index);
-      }, index * 100); // Delay each item's animation
-    });
-  }, []);
-
-  const animatedStyle = {
-    opacity: animatedValues[index1],
-  };
-
+interface RicepeItemPrp{
+  images: any;
+  title: string;
+  difficulty: any;
+  time: any;
+  item: Recipe;
+}
+export function RicepeItem({item}:{item:RicepeItemPrp}) {
   return (
-    <Animated.View style={animatedStyle}>
-
     <Row style={styles.container}>
       <View style={styles.imgContainer}>
-        <Image
+        <FastImage
           style={styles.img}
           source={{
-            uri: 'https://cookingwithbliss.com/wp-content/uploads/2020/02/cast-iron-skillet-chicken-breast-6.jpg',
+            uri: `https://i.dietdoctor.com${item.images.vt}`,
           }}
         />
         <View style={styles.outerBadge}>
@@ -61,7 +34,7 @@ export function RicepeItem({index1}:{index1:number}) {
       </View>
       <View style={styles.middelview}>
         <Text size={25} numberOfLines={2}>
-          skillet chicken breast with cherry tomatoes
+          {item.title}
         </Text>
         <Divider height={8} />
         <Row>
@@ -72,11 +45,11 @@ export function RicepeItem({index1}:{index1:number}) {
             color={colors.gray3}
           />
           <Text size={10} color={colors.gray3}>
-            30 min
+            {item.time?.preparation} min
           </Text>
           <View style={styles.line} />
           <Text size={10} color={colors.gray3}>
-            Easy
+            {item?.difficulty?.rating}
           </Text>
         </Row>
       </View>
@@ -84,7 +57,6 @@ export function RicepeItem({index1}:{index1:number}) {
         <Icon name="ellipsis1" size={18} color={colors.gray3} />
       </Button>
     </Row>
-    </Animated.View>
   );
 }
 
@@ -94,14 +66,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
   },
-  iconClock: {marginRight: 8},
-  img: {width: '100%', height: '100%'},
+  iconClock:{marginRight: 8},
+  img: {width: width / 3, height: width / 3},
   imgContainer: {
     width: width / 3,
     aspectRatio: 1,
     borderRadius: 5,
     overflow: 'hidden',
-    backgroundColor: colors.gray2,
+    // backgroundColor: colors.gray2,
   },
   middelview: {
     flex: 1,

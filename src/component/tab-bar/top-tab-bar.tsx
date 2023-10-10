@@ -3,6 +3,8 @@ import React, {useState} from 'react';
 import {Button, Row, Text} from '../';
 import {colors} from '../../Styles';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { useDispatch } from 'react-redux';
+import { setRecipesModal } from '../../redux/search-slice';
 
 const obj = {
   ricepes: 'Ricepes',
@@ -10,7 +12,13 @@ const obj = {
 };
 
 export function TopTabBar({state, descriptors, navigation}: any) {
+  const dispatch = useDispatch()
   const [text, setText] = useState('');
+  const onPressFilter = ()=>{
+    if(state.index === 0){
+      dispatch(setRecipesModal(true))
+    }
+  }
   return (
     <View>
       <Row style={styles.container}>
@@ -62,9 +70,10 @@ export function TopTabBar({state, descriptors, navigation}: any) {
           )}
           <Button
             onPress={() =>
-              navigation.navigate('filter', {
-                type: state.index === 0 ? 'recipes' : 'meals',
-              })
+              onPressFilter()
+              // navigation.navigate('filter', {
+              //   type: state.index === 0 ? 'recipes' : 'meals',
+              // })
             }
             style={{...styles.filterContainer}}>
             <Icon name="filter" size={18} color="black" />
