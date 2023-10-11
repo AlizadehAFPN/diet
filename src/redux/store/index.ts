@@ -4,7 +4,7 @@ import {PERSIST, persistReducer, persistStore} from 'redux-persist';
 import storage from '@react-native-async-storage/async-storage'; // Use appropriate storage library
 
 import searchSlice from '../search-slice';
-import authSlice, {authState} from '../authSlice';
+import authSlice from '../authSlice';
 
 // Combine reducers
 const rootReducer = combineReducers({

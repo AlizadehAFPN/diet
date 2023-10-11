@@ -1,26 +1,30 @@
 import React, {useCallback, useEffect} from 'react';
-import {ActivityIndicator, Dimensions, StyleSheet, View} from 'react-native';
-import {
-  Divider,
-  FilterBadgeClose,
-  RicepeItem,
-  Screen,
-  Text,
-} from '../../component';
+import {ActivityIndicator, Dimensions, SafeAreaView, StyleSheet, View} from 'react-native';
+import {Divider, FilterBadgeClose, RicepeItem, Text} from '../../component';
 import {colors} from '../../Styles';
 import {useDispatch, useSelector} from 'react-redux';
 import {setRecipesModal, setRecipesTags} from '../../redux/search-slice';
 import {FlashList} from '@shopify/flash-list';
-import {Recipe, storeInterface, tag} from '../../Interface';
+import {Recipe, tag} from '../../Interface';
 import {useQuery} from '@apollo/client';
 import {GetRecipes} from '../../services/graphQluries';
 import {FilterModal} from './filter-modal';
 import {RootState} from '../../redux/store';
-
 const {width} = Dimensions.get('window');
-export function RecipesTab() {
+const queryOptions = {
+  variables: {
+    page: 1,
+    pageSize: 20,
+    tagFilters: [],
+    premiumOnly: false,
+    notifyOnNetworkStatusChange: true,
+    includePremiumPreview: false,
+  },
+};
+
+export const RecipesTab = () => {
   const dispatch = useDispatch();
-  const token: string = useSelector((state: RootState) => state.auth.token);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const renderItem = ({item, index}: {item: Recipe; index: number}) => (
     <RicepeItem item={item} key={String(index + 50)} />
@@ -34,21 +38,12 @@ export function RecipesTab() {
     dispatch(setRecipesTags(selectedItem));
   };
 
-  const {loading, error, data, refetch, fetchMore, client} = useQuery(
-    GetRecipes,
-    {
-      variables: {
-        page: 1,
-        pageSize: 20,
-        tagFilters: [],
-        premiumOnly: false,
-        includePremiumPreview: false,
-      },
-    },
-  );
+  const {loading, data, refetch, fetchMore } = useQuery(GetRecipes, queryOptions);
 
   const onEndReached = () => {
     if (data?.listRecipes?.nextPage) {
+      setIsLoading(true); // Set loading state to true
+  
       fetchMore({
         variables: {
           page: data?.listRecipes?.nextPage,
@@ -57,7 +52,7 @@ export function RecipesTab() {
           premiumOnly: false,
           includePremiumPreview: false,
         },
-        updateQuery: (previousResult, {fetchMoreResult}) => {
+        updateQuery: (previousResult, { fetchMoreResult }) => {
           // Don't do anything if there weren't any new items
           if (!fetchMoreResult || fetchMoreResult.listRecipes.recipes === 0) {
             return previousResult;
@@ -73,11 +68,15 @@ export function RecipesTab() {
             },
           };
         },
+      }).then(() => {
+        setIsLoading(false); // Reset loading state when finished
       });
     }
   };
+  
+
   useEffect(() => {
-    refetch({
+    refetch({ 
       page: 1,
       pageSize: 20,
       tagFilters: recipesTags.map((item: tag) => item?.id),
@@ -96,9 +95,8 @@ export function RecipesTab() {
   );
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.cart}>
-        <Divider />
         <View style={styles.fc}>
           {recipesTags.length > 0 &&
             recipesTags.map((item: tag) => (
@@ -107,26 +105,18 @@ export function RecipesTab() {
         </View>
         <FlashList
           onEndReached={onEndReached}
-          onEndReachedThreshold={50}
+          onEndReachedThreshold={0.5}
           contentContainerStyle={styles.flashStyle}
           showsVerticalScrollIndicator={false}
           renderItem={renderItem}
-          estimatedItemSize={100}
+          estimatedItemSize={160}
           keyExtractor={item => item.id}
-          ListHeaderComponent={
-            <View>
-              {loading ? (
-                <ActivityIndicator />
-              ) : (
-                <Text color={colors.gray3}>
-                  {data?.listRecipes?.totalSize} recipe
-                </Text>
-              )}
-            </View>
-          }
+          ListHeaderComponent={<>{isLoading && <ActivityIndicator/>}</>}
           data={data?.listRecipes?.recipes}
+          ListFooterComponent={<>{isLoading && <ActivityIndicator/>}</>}
           ItemSeparatorComponent={ItemSeparatorComponent}
         />
+
       </View>
       <FilterModal
         visible={recipesModal}
@@ -135,7 +125,7 @@ export function RecipesTab() {
         onClose={handleCloseModal}
         loading={loading}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 

@@ -94,7 +94,7 @@ function ScreenWithScrolling(props: ScreenProps) {
  *
  * @param props The screen props
  */
-export function Screen(props: ScreenProps) {
+export const Screen = (props: ScreenProps) => {
   if (props.withoutScroll) {
     return <ScreenWithoutScrolling {...props} />;
   } else {

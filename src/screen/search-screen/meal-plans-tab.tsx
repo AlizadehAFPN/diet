@@ -3,7 +3,7 @@ import React from 'react';
 import {Screen, Text} from '../../component';
 
 const {width} = Dimensions.get('window');
-export function MealPlansTab() {
+export const MealPlansTab = () => {
   return (
     <View style={styles.container}>
       <View style={styles.cart}>

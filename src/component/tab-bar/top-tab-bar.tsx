@@ -11,7 +11,7 @@ const obj = {
   meal: 'Meal Plans',
 };
 
-export function TopTabBar({state, descriptors, navigation}: any) {
+export const TopTabBar = ({state, descriptors, navigation}: any) => {
   const dispatch = useDispatch();
   const [text, setText] = useState('');
   const onPressFilter = () => {

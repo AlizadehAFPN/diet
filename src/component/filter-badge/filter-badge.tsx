@@ -9,7 +9,7 @@ interface FilterBadgePrp {
   selected: [tag];
   onSelect: (item: tag) => void;
 }
-export function FilterBadge({item, selected, onSelect}: FilterBadgePrp) {
+export const FilterBadge = ({ item, selected, onSelect }: FilterBadgePrp) => {
   const isSelected = useMemo(
     () => selected?.find((elem: tag) => item.id === elem.id),
     [selected, item], // Include 'label' in the dependency array

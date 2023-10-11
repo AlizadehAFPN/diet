@@ -6,9 +6,9 @@ import {
   Dimensions,
   ScrollView,
   StyleSheet,
-  TextInput,
   View,
   Animated,
+  TouchableOpacity,
 } from 'react-native';
 import {colors} from '../../Styles';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -17,8 +17,7 @@ import {setRecipesModal} from '../../redux/search-slice';
 
 const {width} = Dimensions.get('window');
 
-export function SearchScreen() {
-  const [text, setText] = useState('');
+export const SearchScreen = () => {
   const dispatch = useDispatch();
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollRef = useRef<ScrollView>(null);
@@ -42,7 +41,7 @@ export function SearchScreen() {
   };
 
   const onPressfilter = () => {
-    if (activeIndex == 0) {
+    if (activeIndex === 0) {
       dispatch(setRecipesModal(true));
     }
   };
@@ -63,23 +62,12 @@ export function SearchScreen() {
       </View>
 
       <View style={styles.scrollContainer}>
-        <View style={styles.box}>
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.textinput}
-              value={text}
-              onChangeText={textInput => setText(textInput)}
-            />
-            {text && (
-              <Button onPress={() => setText('')}>
-                <Icon name="close" size={18} color="black" />
-              </Button>
-            )}
-            <Button onPress={onPressfilter} style={{...styles.filterContainer}}>
+        <TouchableOpacity onPress={onPressfilter} style={styles.box}>
+          <View  style={styles.inputContainer}>
+            
               <Icon name="filter" size={18} color="black" />
-            </Button>
           </View>
-        </View>
+        </TouchableOpacity>
         <ScrollView
           onMomentumScrollEnd={onMomentumScrollEnd}
           showsHorizontalScrollIndicator={false}
@@ -136,7 +124,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     height: 40,
     paddingHorizontal: 12,
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     borderRadius: 3,
     shadowColor: 'black',

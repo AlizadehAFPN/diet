@@ -1,16 +1,10 @@
-import {
-  Animated,
-  Dimensions,
-  Easing,
-  Image,
-  StyleSheet,
-  View,
-} from 'react-native';
-import React from 'react';
+import {Dimensions, StyleSheet, View} from 'react-native';
+import React, { FC } from 'react';
 import {Row, Button, Text, Divider} from '../';
 import {colors} from '../../Styles';
 import Icon from 'react-native-vector-icons/AntDesign';
 import FastImage from 'react-native-fast-image';
+import { ActivityIndicator } from 'react-native';
 
 const {width} = Dimensions.get('window');
 interface RicepeItemPrp {
@@ -19,23 +13,19 @@ interface RicepeItemPrp {
   difficulty: any;
   time: any;
 }
-export function RicepeItem({item}: {item: RicepeItemPrp}) {
+const RicepeItem = ({ item }: { item: RicepeItemPrp }) => {
+
   return (
     <Row style={styles.container}>
       <View style={styles.imgContainer}>
         <FastImage
           style={styles.img}
+          resizeMode={FastImage.resizeMode.contain}
+          onLoad={()=><ActivityIndicator/>}
           source={{
             uri: `https://i.dietdoctor.com${item.images.vt}?auto=compress%2Cformat`,
           }}
         />
-        <View style={styles.outerBadge}>
-          <View style={styles.innerBadge}>
-            <Text size={10} color="black">
-              13g
-            </Text>
-          </View>
-        </View>
       </View>
       <View style={styles.middelview}>
         <Text size={25} numberOfLines={2}>
@@ -120,3 +110,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export  {RicepeItem}

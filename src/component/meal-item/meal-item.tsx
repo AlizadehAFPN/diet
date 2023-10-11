@@ -5,7 +5,8 @@ import {colors} from '../../Styles';
 import FastImage from 'react-native-fast-image';
 const {width} = Dimensions.get('window');
 
-export function MealItem() {
+export const MealItem = () => {
+
   return (
     <Row style={styles.container}>
       <View style={styles.imgContainer}>

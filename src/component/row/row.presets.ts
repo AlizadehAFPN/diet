@@ -3,7 +3,7 @@ import {ViewStyle} from 'react-native';
 const BASE: ViewStyle = {
   // justifyContent: "space-between",
   alignItems: 'center',
-  flexDirection: 'row', //i18n.locale=='fa'? 'row-reverse': 'row'
+  flexDirection: 'row',
 };
 
 export const presets = {

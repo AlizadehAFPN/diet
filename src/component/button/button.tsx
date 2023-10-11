@@ -15,13 +15,8 @@ interface ButtonProps extends ViewProps {
   disabled?: boolean;
   onPress?: () => void;
 }
-export function Button({
-  children,
-  loading,
-  style,
-  disabled,
-  onPress,
-}: ButtonProps) {
+export const Button = ({ children, loading, style, disabled, onPress }: ButtonProps) => {
+
   const handlePress = () => {
     !loading && !disabled && onPress && onPress();
   };

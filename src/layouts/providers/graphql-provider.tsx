@@ -4,6 +4,6 @@ import {graphqlInstance} from '../../services/graphqlConfig';
 interface GraphQlProviderPrps {
   children: ReactNode;
 }
-export function GraphQlProvider({children}: GraphQlProviderPrps) {
+export const GraphQlProvider = ({ children }: GraphQlProviderPrps) => {
   return <ApolloProvider client={graphqlInstance()}>{children}</ApolloProvider>;
 }

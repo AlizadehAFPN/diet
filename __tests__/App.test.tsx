@@ -1,5 +1,4 @@
 import React from 'react';
-import {RicepeItem} from '../src/component/ricepe-item/ricepe-item';
 import axiosInstance from '../src/services/axiosConfig';
 import {render} from '@testing-library/react-native';
 import {Text} from '../src/component/text/text';

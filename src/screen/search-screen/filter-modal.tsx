@@ -73,18 +73,18 @@ interface FilterModalPrp {
   type?: string;
   loading?: boolean;
 }
-export function FilterModal({
+export const FilterModal = ({
   visible,
   onClose,
   resultNumbs,
   type,
   loading,
-}: FilterModalPrp) {
+}: FilterModalPrp) => {
   const dispatch = useDispatch();
   const {recipesTags, mealsTags} = useSelector((s: any) => s.search);
 
   const handleSelect = (tag: tag) => {
-    const tags = type == 'recipes' ? recipesTags : mealsTags;
+    const tags = type === 'recipes' ? recipesTags : mealsTags;
     const isSelected = tags.findIndex((l: tag) => l === tag);
     if (isSelected > -1) {
       dispatch(setRecipesTags(tags?.filter((item: tag) => item !== tag)));
@@ -114,7 +114,7 @@ export function FilterModal({
                 {item.lists.map((elem, index) => (
                   <FilterBadge
                     key={String(index + 100)}
-                    selected={type == 'recipes' ? recipesTags : mealsTags}
+                    selected={type === 'recipes' ? recipesTags : mealsTags}
                     onSelect={handleSelect}
                     item={elem}
                   />

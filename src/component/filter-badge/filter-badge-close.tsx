@@ -8,7 +8,7 @@ interface FilterBadgePrp {
   item: tag;
   onSelect: (item: tag) => void;
 }
-export function FilterBadgeClose({item, onSelect}: FilterBadgePrp) {
+export const FilterBadgeClose = ({ item, onSelect }: FilterBadgePrp) => {
   return (
     <View style={{...styles.badge}}>
       <Text style={styles.txt} color={'white'}>
@@ -26,7 +26,7 @@ export function FilterBadgeClose({item, onSelect}: FilterBadgePrp) {
 
 const styles = StyleSheet.create({
   badge: {
-    height: 30,
+    height: 40,
     paddingHorizontal: 15,
     marginRight: 8,
     backgroundColor: 'black',
