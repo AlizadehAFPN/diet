@@ -6,6 +6,8 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import FastImage from 'react-native-fast-image';
 import {Recipestyles} from './recipe-styles'; // Import styles specific to this component
 import {RecipeItemPrp} from '../../Interface';
+import {createImageProgress} from 'react-native-image-progress';
+import * as Progress from 'react-native-progress';
 
 const RecipeItem = ({item}: {item: RecipeItemPrp}) => {
   return (
@@ -50,11 +52,13 @@ const RecipeItem = ({item}: {item: RecipeItemPrp}) => {
   );
 };
 
+const Image = createImageProgress(FastImage);
+
 // A component for displaying the recipe image
 const RecipeImage = ({imageUrl}: {imageUrl: string}) => (
-  <FastImage
+  <Image
     style={Recipestyles.img}
-    resizeMode={FastImage.resizeMode.cover}
+    indicator={Progress.CircleSnail}
     source={{uri: imageUrl}}
   />
 );

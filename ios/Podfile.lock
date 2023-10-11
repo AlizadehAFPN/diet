@@ -512,6 +512,8 @@ PODS:
   - RNScreens (3.25.0):
     - React-Core
     - React-RCTImage
+  - RNSVG (13.14.0):
+    - React-Core
   - RNVectorIcons (10.0.0):
     - React-Core
   - SDWebImage (5.11.1):
@@ -594,6 +596,7 @@ DEPENDENCIES:
   - RNFastImage (from `../node_modules/react-native-fast-image`)
   - "RNFlashList (from `../node_modules/@shopify/flash-list`)"
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -707,6 +710,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@shopify/flash-list"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   Yoga:
@@ -770,6 +775,7 @@ SPEC CHECKSUMS:
   RNFastImage: 5c9c9fed9c076e521b3f509fe79e790418a544e8
   RNFlashList: 236646d48f224a034f35baa0242e1b77db063b1e
   RNScreens: 85d3880b52d34db7b8eeebe2f1a0e807c05e69fa
+  RNSVG: d00c8f91c3cbf6d476451313a18f04d220d4f396
   RNVectorIcons: 8b5bb0fa61d54cd2020af4f24a51841ce365c7e9
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
