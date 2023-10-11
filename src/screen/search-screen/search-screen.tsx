@@ -1,19 +1,18 @@
 import React, {useRef, useState} from 'react';
 import {Button, Screen, Row, Text} from '../../component';
-import {RecipesTab} from './recipes-tab';
 import {MealPlansTab} from './meal-plans-tab';
 import {
   Dimensions,
   ScrollView,
-  StyleSheet,
   View,
   Animated,
   TouchableOpacity,
 } from 'react-native';
-import {colors} from '../../Styles';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {useDispatch} from 'react-redux';
 import {setRecipesModal} from '../../redux/search-slice';
+import { RecipesTab } from './recipes-tab';
+import { stylesTab } from './styles';
 
 const {width} = Dimensions.get('window');
 
@@ -46,24 +45,24 @@ export const SearchScreen = () => {
     }
   };
   return (
-    <Screen withoutScroll style={styles.container}>
-      <Row style={styles.tabbar}>
-        <Button onPress={() => onPressTab(0)} style={styles.tab}>
+    <Screen withoutScroll style={stylesTab.container}>
+      <Row style={stylesTab.tabbar}>
+        <Button onPress={() => onPressTab(0)} style={stylesTab.tab}>
           <Text>Ricepes</Text>
         </Button>
-        <Button onPress={() => onPressTab(1)} style={styles.tab}>
+        <Button onPress={() => onPressTab(1)} style={stylesTab.tab}>
           <Text>Meal Plans</Text>
         </Button>
       </Row>
       <View style={{paddingHorizontal: 15}}>
         <Animated.View
-          style={{...styles.indicator, transform: [{translateX: transX}]}}
+          style={{...stylesTab.indicator, transform: [{translateX: transX}]}}
         />
       </View>
 
-      <View style={styles.scrollContainer}>
-        <TouchableOpacity onPress={onPressfilter} style={styles.box}>
-          <View  style={styles.inputContainer}>
+      <View style={stylesTab.scrollContainer}>
+        <TouchableOpacity onPress={onPressfilter} style={stylesTab.box}>
+          <View  style={stylesTab.inputContainer}>
             
               <Icon name="filter" size={18} color="black" />
           </View>
@@ -73,7 +72,7 @@ export const SearchScreen = () => {
           showsHorizontalScrollIndicator={false}
           ref={scrollRef}
           scrollEventThrottle={5}
-          style={styles.cart}
+          style={stylesTab.cartRecipe}
           pagingEnabled
           horizontal>
           <RecipesTab />
@@ -83,84 +82,3 @@ export const SearchScreen = () => {
     </Screen>
   );
 }
-
-// Styles and other definitions here
-
-const styles = StyleSheet.create({
-  container: {flex: 1},
-  stack: {backgroundColor: 'transparent'},
-  scrollContainer: {
-    flex: 1,
-    width,
-    backgroundColor: colors.lightGreen,
-  },
-  flashStyle: {paddingHorizontal: 15},
-  cart: {
-    backgroundColor: 'white',
-    paddingTop: 20,
-    // flex: 1,
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    overflow: 'hidden',
-  },
-  btn: {
-    borderBottomWidth: 3,
-    height: 60,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-  },
-  label: {
-    marginVertical: 5,
-    marginBottom: 10,
-  },
-  box: {
-    backgroundColor: colors.lightGreen,
-    paddingHorizontal: 15,
-    paddingVertical: 20,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    backgroundColor: 'white',
-    height: 40,
-    paddingHorizontal: 12,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    borderRadius: 3,
-    shadowColor: 'black',
-    shadowOffset: {width: 2, height: 2},
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-  },
-  textinput: {
-    flex: 1,
-    fontSize: 14,
-  },
-  filterContainer: {
-    width: 25,
-    height: 25,
-    borderRadius: 15,
-    borderWidth: 1,
-    borderColor: colors.green1,
-    marginLeft: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  tabbar: {
-    justifyContent: 'space-between',
-    paddingHorizontal: 15,
-    height: 60,
-  },
-  tab: {
-    paddingHorizontal: 20,
-    height: 60,
-    justifyContent: 'center',
-    width: 150,
-    alignItems: 'center',
-  },
-  indicator: {
-    height: 3,
-    width: 150,
-    backgroundColor: 'black',
-  },
-});

@@ -20,7 +20,7 @@ const RicepeItem = ({ item }: { item: RicepeItemPrp }) => {
       <View style={styles.imgContainer}>
         <FastImage
           style={styles.img}
-          resizeMode={FastImage.resizeMode.contain}
+          resizeMode={FastImage.resizeMode.cover}
           onLoad={()=><ActivityIndicator/>}
           source={{
             uri: `https://i.dietdoctor.com${item.images.vt}?auto=compress%2Cformat`,

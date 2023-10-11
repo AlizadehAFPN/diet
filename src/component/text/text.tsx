@@ -9,7 +9,7 @@ import {colors} from '../../Styles';
  *
  * This component is a HOC over the built-in React Native one.
  */
-export function Text(props: TextProps) {
+export const Text = (props: TextProps) => {
   // grab the props
   const {text, children, style: styleOverride, ...rest} = props;
 

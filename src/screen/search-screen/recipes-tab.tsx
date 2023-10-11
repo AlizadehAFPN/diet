@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect} from 'react';
-import {ActivityIndicator, Dimensions, SafeAreaView, StyleSheet, View} from 'react-native';
-import {Divider, FilterBadgeClose, RicepeItem, Text} from '../../component';
-import {colors} from '../../Styles';
+import {ActivityIndicator, Dimensions, SafeAreaView, View} from 'react-native';
+import { FilterBadgeClose, RicepeItem, Text} from '../../component';
 import {useDispatch, useSelector} from 'react-redux';
 import {setRecipesModal, setRecipesTags} from '../../redux/search-slice';
 import {FlashList} from '@shopify/flash-list';
@@ -10,7 +9,8 @@ import {useQuery} from '@apollo/client';
 import {GetRecipes} from '../../services/graphQluries';
 import {FilterModal} from './filter-modal';
 import {RootState} from '../../redux/store';
-const {width} = Dimensions.get('window');
+import { stylesTab } from './styles';
+
 const queryOptions = {
   variables: {
     page: 1,
@@ -90,14 +90,14 @@ export const RecipesTab = () => {
   };
 
   const ItemSeparatorComponent = useCallback(
-    () => <View style={styles.divider} />,
+    () => <View style={stylesTab.divider} />,
     [],
   );
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.cart}>
-        <View style={styles.fc}>
+    <SafeAreaView style={stylesTab.container}>
+      <View style={stylesTab.cart}>
+        <View style={stylesTab.fc}>
           {recipesTags.length > 0 &&
             recipesTags.map((item: tag) => (
               <FilterBadgeClose key={item.id} onSelect={onSelect} item={item} />
@@ -106,7 +106,7 @@ export const RecipesTab = () => {
         <FlashList
           onEndReached={onEndReached}
           onEndReachedThreshold={0.5}
-          contentContainerStyle={styles.flashStyle}
+          contentContainerStyle={stylesTab.flashStyle}
           showsVerticalScrollIndicator={false}
           renderItem={renderItem}
           estimatedItemSize={160}
@@ -128,28 +128,3 @@ export const RecipesTab = () => {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width,
-  },
-  flashStyle: {
-    paddingHorizontal: 15,
-  },
-  cart: {
-    flex: 1,
-  },
-  screenContainer: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  fc: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    paddingHorizontal: 15,
-  },
-  divider: {
-    height: 1,
-    backgroundColor: colors.gray2,
-  },
-});

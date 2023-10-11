@@ -1,4 +1,4 @@
-import {Modal, StyleSheet, View} from 'react-native';
+import {Modal, View} from 'react-native';
 import React from 'react';
 import {Button, Divider, FilterBadge, Row, Screen, Text} from '../../component';
 import {colors} from '../../Styles';
@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setRecipesTags} from '../../redux/search-slice';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {tag} from '../../Interface';
+import { stylesTab } from './styles';
 
 const opts = [
   {
@@ -105,12 +106,12 @@ export const FilterModal = ({
           </Text>
         </Row>
         <Divider />
-        <Screen style={styles.screen} unsafe>
+        <Screen style={stylesTab.screen} unsafe>
           {opts.map((item, indexOpt) => (
             <View key={String(indexOpt + 20)}>
               <Text size={18}>{item.title}</Text>
               <Divider height={8} />
-              <View style={styles.section}>
+              <View style={stylesTab.section}>
                 {item.lists.map((elem, index) => (
                   <FilterBadge
                     key={String(index + 100)}
@@ -124,7 +125,7 @@ export const FilterModal = ({
             </View>
           ))}
         </Screen>
-        <Button loading={loading} onPress={onClose} style={styles.button}>
+        <Button loading={loading} onPress={onClose} style={stylesTab.buttonModal}>
           <Text size={18} color="white">
             {<Text color="white">{resultNumbs} </Text>} show recipes
           </Text>
@@ -133,24 +134,3 @@ export const FilterModal = ({
     </Modal>
   );
 }
-
-const styles = StyleSheet.create({
-  screen: {
-    paddingHorizontal: 15,
-  },
-  section: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  button: {
-    position: 'absolute',
-    left: 30,
-    right: 30,
-    height: 50,
-    bottom: 80,
-    borderRadius: 30,
-    backgroundColor: colors.green1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
