@@ -8,14 +8,10 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
 
-To start Metro, run the following command from the _root_ of your React Native project:
+To install the dependencies for both android and IOS, just need to run:
 
 ```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
+yarn 
 ```
 
 ## Step 2: Start your Application
@@ -25,20 +21,12 @@ Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _roo
 ### For Android
 
 ```bash
-# using npm
-npm run android
-
-# OR using Yarn
 yarn android
 ```
 
 ### For iOS
 
 ```bash
-# using npm
-npm run ios
-
-# OR using Yarn
 yarn ios
 ```
 
