@@ -3,7 +3,5 @@ export * from './button/button';
 export * from './row/row';
 export * from './screen/screen';
 export * from './divider/divider';
-export * from './tab-bar';
-export * from './ricepe-item';
-export * from './meal-item';
 export * from './filter-badge';
+export * from './recipe-item';

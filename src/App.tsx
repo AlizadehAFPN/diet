@@ -4,9 +4,9 @@ import AppNavigator from './navigator';
 import {Provider} from 'react-redux';
 import {persistor, store} from './redux/store';
 import {QueryClient, QueryClientProvider} from 'react-query';
-import {GraphQlProvider} from './layouts';
 import {PersistGate} from 'redux-persist/integration/react';
 import {ActivityIndicator} from 'react-native';
+import {GraphQlProvider} from './services/graphql-provider';
 
 const queryClient: QueryClient = new QueryClient();
 

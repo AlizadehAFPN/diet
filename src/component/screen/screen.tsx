@@ -9,7 +9,6 @@ import {
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {ScreenProps} from './screen.props';
 import {offsets, presets} from './screen.presets';
-// import { colors } from "../../theme"
 
 const isIos = Platform.OS === 'ios';
 
@@ -74,14 +73,7 @@ function ScreenWithScrolling(props: ScreenProps) {
           contentContainerStyle={[preset.inner, style]}
           keyboardShouldPersistTaps={
             props.keyboardShouldPersistTaps || 'handled'
-          }
-          // refreshControl={props.onRefresh ?
-          //   <RefreshControl
-          //     refreshing={props.refreshing}
-          //     onRefresh={props.onRefresh}
-          //   /> : <View />
-          // }
-        >
+          }>
           {props.children}
         </ScrollView>
       </View>
@@ -100,4 +92,4 @@ export const Screen = (props: ScreenProps) => {
   } else {
     return <ScreenWithScrolling {...props} />;
   }
-}
+};

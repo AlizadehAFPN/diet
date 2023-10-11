@@ -11,8 +11,9 @@ import {
 import Icon from 'react-native-vector-icons/AntDesign';
 import {useDispatch} from 'react-redux';
 import {setRecipesModal} from '../../redux/search-slice';
-import { RecipesTab } from './recipes-tab';
-import { stylesTab } from './styles';
+import {RecipesTab} from './recipes-tab';
+import {stylesTab} from './styles';
+import {ScrollViewEvent} from '../../Interface';
 
 const {width} = Dimensions.get('window');
 
@@ -34,7 +35,11 @@ export const SearchScreen = () => {
       });
     }
   };
-  const onMomentumScrollEnd = ({nativeEvent}: {nativeEvent: any}) => {
+  const onMomentumScrollEnd = ({
+    nativeEvent,
+  }: {
+    nativeEvent: ScrollViewEvent;
+  }) => {
     const index = Math.round(nativeEvent.contentOffset.x / width);
     onPressTab(index);
   };
@@ -48,13 +53,13 @@ export const SearchScreen = () => {
     <Screen withoutScroll style={stylesTab.container}>
       <Row style={stylesTab.tabbar}>
         <Button onPress={() => onPressTab(0)} style={stylesTab.tab}>
-          <Text>Ricepes</Text>
+          <Text>Recipes</Text>
         </Button>
         <Button onPress={() => onPressTab(1)} style={stylesTab.tab}>
           <Text>Meal Plans</Text>
         </Button>
       </Row>
-      <View style={{paddingHorizontal: 15}}>
+      <View style={stylesTab.paddingWidth}>
         <Animated.View
           style={{...stylesTab.indicator, transform: [{translateX: transX}]}}
         />
@@ -62,9 +67,8 @@ export const SearchScreen = () => {
 
       <View style={stylesTab.scrollContainer}>
         <TouchableOpacity onPress={onPressfilter} style={stylesTab.box}>
-          <View  style={stylesTab.inputContainer}>
-            
-              <Icon name="filter" size={18} color="black" />
+          <View style={stylesTab.inputContainer}>
+            <Icon name="filter" size={18} color="black" />
           </View>
         </TouchableOpacity>
         <ScrollView
@@ -81,4 +85,4 @@ export const SearchScreen = () => {
       </View>
     </Screen>
   );
-}
+};

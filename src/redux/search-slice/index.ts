@@ -1,14 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {tag} from '../../Interface';
-// Define the initial state interface
-
-// We don't need flexible type so we don't use <T>
-
-export interface SearchState {
-  recipesTags: tag[];
-  mealsTags: tag[];
-  recipesModal: boolean;
-}
+import {SearchState, tag} from '../../Interface';
 
 // Define the initial state
 const initialState: SearchState = {

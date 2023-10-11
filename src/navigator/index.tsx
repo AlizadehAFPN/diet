@@ -1,16 +1,16 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {NavigatorParamList, loginInterface} from '../Interface';
+import {NavigatorParamList, loginType, authState} from '../Interface';
 import {SearchScreen} from '../screen';
 import {useDispatch, useSelector} from 'react-redux';
 import {useQuery} from 'react-query';
 import {tempLogin} from '../services';
-import {authState, setToken} from '../redux/authSlice';
+import {setToken} from '../redux/authSlice';
 import {selectTokenExists} from '../redux/authSlice/authSelector';
 
 const Stack = createNativeStackNavigator<NavigatorParamList>();
 
-const auth: loginInterface = {
+const auth: loginType = {
   username: 'stas.testuser1@dietdoctor.com',
   password: 'C5(Pg5qwrwP^(WJ!eS%d38FI',
 };

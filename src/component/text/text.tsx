@@ -29,4 +29,4 @@ export const Text = (props: TextProps) => {
       {content}
     </ReactNativeText>
   );
-}
+};

@@ -1,22 +1,19 @@
 import {
   View,
   TouchableOpacity,
-  ViewProps,
-  ViewStyle,
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
 import React from 'react';
+import {ButtonProps} from '../../Interface';
 
-interface ButtonProps extends ViewProps {
-  children?: React.ReactNode;
-  style?: ViewStyle;
-  loading?: boolean;
-  disabled?: boolean;
-  onPress?: () => void;
-}
-export const Button = ({ children, loading, style, disabled, onPress }: ButtonProps) => {
-
+export const Button = ({
+  children,
+  loading,
+  style,
+  disabled,
+  onPress,
+}: ButtonProps) => {
   const handlePress = () => {
     !loading && !disabled && onPress && onPress();
   };
@@ -30,7 +27,7 @@ export const Button = ({ children, loading, style, disabled, onPress }: ButtonPr
       {children}
     </TouchableOpacity>
   );
-}
+};
 const styles = StyleSheet.create({
   loadingContaier: {
     position: 'absolute',

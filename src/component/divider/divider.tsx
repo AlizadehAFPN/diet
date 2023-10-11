@@ -1,10 +1,12 @@
 import React, {FunctionComponent} from 'react';
-import {ViewStyle, StyleProp, View} from 'react-native';
-interface DividerProps {
-  style?: StyleProp<ViewStyle>;
-  height?: number;
-}
+import {ViewStyle, View} from 'react-native';
+import {DividerProps} from '../../Interface';
 
 export const Divider: FunctionComponent<DividerProps> = ({style, height}) => {
-  return <View style={[{width: '100%', height: height || 20}, style]} />;
+  const dividerStyle: ViewStyle = {
+    width: '100%', // Specify the type explicitly
+    height: height || 20,
+  };
+
+  return <View style={[dividerStyle, style]} />;
 };

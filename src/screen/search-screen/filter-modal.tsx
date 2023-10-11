@@ -5,8 +5,9 @@ import {colors} from '../../Styles';
 import {useDispatch, useSelector} from 'react-redux';
 import {setRecipesTags} from '../../redux/search-slice';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {tag} from '../../Interface';
-import { stylesTab } from './styles';
+import {FilterModalPrp, tag} from '../../Interface';
+import {stylesTab} from './styles';
+import {RootState} from '../../redux/store';
 
 const opts = [
   {
@@ -67,13 +68,6 @@ const opts = [
   },
 ];
 
-interface FilterModalPrp {
-  visible?: boolean;
-  onClose?: () => void;
-  resultNumbs?: number;
-  type?: string;
-  loading?: boolean;
-}
 export const FilterModal = ({
   visible,
   onClose,
@@ -82,15 +76,21 @@ export const FilterModal = ({
   loading,
 }: FilterModalPrp) => {
   const dispatch = useDispatch();
-  const {recipesTags, mealsTags} = useSelector((s: any) => s.search);
+  const {recipesTags, mealsTags} = useSelector(
+    (state: RootState) => state.search,
+  );
 
-  const handleSelect = (tag: tag) => {
+  const handleSelect = (selectedTag: tag) => {
     const tags = type === 'recipes' ? recipesTags : mealsTags;
-    const isSelected = tags.findIndex((l: tag) => l === tag);
+    const isSelected = tags.findIndex(
+      (loopTag: tag) => loopTag === selectedTag,
+    );
     if (isSelected > -1) {
-      dispatch(setRecipesTags(tags?.filter((item: tag) => item !== tag)));
+      dispatch(
+        setRecipesTags(tags?.filter((item: tag) => item !== selectedTag)),
+      );
     } else {
-      dispatch(setRecipesTags(tags.concat(tag)));
+      dispatch(setRecipesTags(tags.concat(selectedTag)));
     }
   };
 
@@ -125,7 +125,10 @@ export const FilterModal = ({
             </View>
           ))}
         </Screen>
-        <Button loading={loading} onPress={onClose} style={stylesTab.buttonModal}>
+        <Button
+          loading={loading}
+          onPress={onClose}
+          style={stylesTab.buttonModal}>
           <Text size={18} color="white">
             {<Text color="white">{resultNumbs} </Text>} show recipes
           </Text>
@@ -133,4 +136,4 @@ export const FilterModal = ({
       </Screen>
     </Modal>
   );
-}
+};
