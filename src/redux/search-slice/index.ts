@@ -9,8 +9,8 @@ const initialState: SearchState = {
 };
 
 // Creating Redux slice
-const configSlice = createSlice({
-  name: 'search',
+const searchSlice = createSlice({
+  name: 'search', // Slice name
   initialState, // Use the defined initialState
   reducers: {
     setRecipesTags: (state, action: PayloadAction<tag[]>) => {
@@ -27,6 +27,6 @@ const configSlice = createSlice({
 
 // Export action creators and reducer
 export const {setRecipesTags, setMealsTags, setRecipesModal} =
-  configSlice.actions;
+  searchSlice.actions;
 
-export default configSlice.reducer;
+export default searchSlice.reducer; // Export the reducer as the default export

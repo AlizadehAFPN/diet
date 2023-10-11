@@ -11,6 +11,7 @@ import {FilterModal} from './filter-modal';
 import {RootState} from '../../redux/store';
 import {stylesTab} from './styles';
 
+// Query options for fetching recipes
 const queryOptions = {
   variables: {
     page: 1,
@@ -22,27 +23,35 @@ const queryOptions = {
   },
 };
 
+// RecipesTab component
 export const RecipesTab = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = React.useState(false);
 
+  // Function to render each recipe item
   const renderItem = ({item, index}: {item: Recipe; index: number}) => (
     <RecipeItem item={item} key={String(index + 50)} />
   );
 
+  // Get recipesTags and recipesModal from the Redux store
   const {recipesTags, recipesModal} = useSelector((s: RootState) => s.search);
+
+  // Function to handle selection of a filter badge
   const onSelect = (label: tag) => {
+    // Filter out the selected item and update the Redux state
     const selectedItem: tag[] = recipesTags.filter(
       (item: tag) => item?.id !== label?.id,
     );
     dispatch(setRecipesTags(selectedItem));
   };
 
+  // Use Apollo Client's useQuery hook to fetch data
   const {loading, data, refetch, fetchMore} = useQuery(
     GetRecipes,
     queryOptions,
   );
 
+  // Function to handle reaching the end of the list
   const onEndReached = () => {
     if (data?.listRecipes?.nextPage) {
       setIsLoading(true); // Set loading state to true
@@ -77,6 +86,7 @@ export const RecipesTab = () => {
     }
   };
 
+  // Use the useEffect hook to refetch data when recipesTags change
   useEffect(() => {
     refetch({
       page: 1,
@@ -87,10 +97,12 @@ export const RecipesTab = () => {
     });
   }, [recipesTags, refetch]);
 
+  // Function to handle modal closure
   const handleCloseModal = () => {
     dispatch(setRecipesModal(false));
   };
 
+  // Define a separator component for the recipe items
   const ItemSeparatorComponent = useCallback(
     () => <View style={stylesTab.divider} />,
     [],

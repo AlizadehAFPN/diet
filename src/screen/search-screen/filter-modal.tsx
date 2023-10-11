@@ -68,28 +68,32 @@ const opts = [
   },
 ];
 
+// UI rendering for the FilterModal component
 export const FilterModal = ({
-  visible,
-  onClose,
-  resultNumbs,
-  type,
-  loading,
+  visible, // A flag indicating whether the modal is visible
+  onClose, // Callback function to close the modal
+  resultNumbs, // The number of results
+  type, // The type of the filter (e.g., 'recipes' or 'meals')
+  loading, // A flag indicating loading state
 }: FilterModalPrp) => {
   const dispatch = useDispatch();
   const {recipesTags, mealsTags} = useSelector(
     (state: RootState) => state.search,
   );
 
+  // Function to handle tag selection
   const handleSelect = (selectedTag: tag) => {
     const tags = type === 'recipes' ? recipesTags : mealsTags;
     const isSelected = tags.findIndex(
       (loopTag: tag) => loopTag === selectedTag,
     );
     if (isSelected > -1) {
+      // If tag is already selected, remove it
       dispatch(
         setRecipesTags(tags?.filter((item: tag) => item !== selectedTag)),
       );
     } else {
+      // If tag is not selected, add it
       dispatch(setRecipesTags(tags.concat(selectedTag)));
     }
   };
@@ -98,6 +102,7 @@ export const FilterModal = ({
     <Modal visible={visible} onRequestClose={onClose}>
       <Screen withoutScroll>
         <Row px={15}>
+          {/* Back button */}
           <Button onPress={onClose}>
             <Icon name="back" size={18} color="black" />
           </Button>
@@ -107,12 +112,14 @@ export const FilterModal = ({
         </Row>
         <Divider />
         <Screen style={stylesTab.screen} unsafe>
+          {/* Render filter options */}
           {opts.map((item, indexOpt) => (
             <View key={String(indexOpt + 20)}>
               <Text size={18}>{item.title}</Text>
               <Divider height={8} />
               <View style={stylesTab.section}>
                 {item.lists.map((elem, index) => (
+                  // Render FilterBadge components for each tag
                   <FilterBadge
                     key={String(index + 100)}
                     selected={type === 'recipes' ? recipesTags : mealsTags}
@@ -125,6 +132,7 @@ export const FilterModal = ({
             </View>
           ))}
         </Screen>
+        {/* Show the number of results and a loading button */}
         <Button
           loading={loading}
           onPress={onClose}

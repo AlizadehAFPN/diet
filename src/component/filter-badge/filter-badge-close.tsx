@@ -1,12 +1,14 @@
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
-import {Text} from '../';
+import {Text} from '../'; // Import the Text component from the appropriate location
 import Icon from 'react-native-vector-icons/AntDesign';
-import {FilterBadgePrp} from '../../Interface';
+import {FilterBadgePrp} from '../../Interface'; // Import the FilterBadgePrp interface
 
+// FilterBadgeClose component to display a badge with a close icon
 export const FilterBadgeClose = ({item, onSelect}: FilterBadgePrp) => {
   return (
     <View style={{...styles.badge}}>
+      {/* Display the title in white text */}
       <Text style={styles.txt} color={'white'}>
         {item.title}
       </Text>
@@ -20,6 +22,7 @@ export const FilterBadgeClose = ({item, onSelect}: FilterBadgePrp) => {
   );
 };
 
+// Styles for the FilterBadgeClose component
 const styles = StyleSheet.create({
   badge: {
     height: 40,

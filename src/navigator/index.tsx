@@ -21,7 +21,7 @@ const AppNavigator = () => {
 
   useQuery(
     'getToken',
-    () => tempLogin(auth), // Replace with your API function
+    () => tempLogin(auth), // Replace with main API function
     {
       enabled: !hasToken, // Only enable the query when there is no token
       onSuccess: (data: authState) => {
