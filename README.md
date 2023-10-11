@@ -6,8 +6,6 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 ## Step 1: Start the Metro Server
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
-
 To install the dependencies for both android and IOS, just need to run:
 
 ```bash
