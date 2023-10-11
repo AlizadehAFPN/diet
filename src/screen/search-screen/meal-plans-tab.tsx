@@ -1,14 +1,14 @@
 import {Dimensions, StyleSheet, View} from 'react-native';
 import React from 'react';
-import { Screen, Text} from '../../component';
+import {Screen, Text} from '../../component';
 
-const {width} = Dimensions.get("window")
+const {width} = Dimensions.get('window');
 export function MealPlansTab() {
   return (
     <View style={styles.container}>
       <View style={styles.cart}>
         <Screen withoutScroll unsafe style={styles.screenContainer}>
-        <Text>meal</Text>
+          <Text>meal</Text>
         </Screen>
       </View>
     </View>

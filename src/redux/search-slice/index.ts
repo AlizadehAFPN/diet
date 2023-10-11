@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import { tag } from '../../Interface';
+import {tag} from '../../Interface';
 // Define the initial state interface
 
 // We don't need flexible type so we don't use <T>
@@ -7,15 +7,14 @@ import { tag } from '../../Interface';
 export interface SearchState {
   recipesTags: tag[];
   mealsTags: tag[];
-  recipesModal: boolean,
-
+  recipesModal: boolean;
 }
 
 // Define the initial state
 const initialState: SearchState = {
   recipesTags: [],
   mealsTags: [],
-  recipesModal: false
+  recipesModal: false,
 };
 
 // Creating Redux slice
@@ -29,13 +28,14 @@ const configSlice = createSlice({
     setMealsTags: (state, action: PayloadAction<tag[]>) => {
       state.mealsTags = action.payload;
     },
-    setRecipesModal:(state, action: PayloadAction<boolean>)=>{
-      state.recipesModal= action.payload
-    }
+    setRecipesModal: (state, action: PayloadAction<boolean>) => {
+      state.recipesModal = action.payload;
+    },
   },
 });
 
 // Export action creators and reducer
-export const {setRecipesTags, setMealsTags, setRecipesModal} = configSlice.actions;
+export const {setRecipesTags, setMealsTags, setRecipesModal} =
+  configSlice.actions;
 
 export default configSlice.reducer;

@@ -1,10 +1,10 @@
-import { combineReducers } from 'redux';
-import { configureStore } from '@reduxjs/toolkit';
-import { PERSIST , persistReducer, persistStore } from 'redux-persist';
+import {combineReducers} from 'redux';
+import {configureStore} from '@reduxjs/toolkit';
+import {PERSIST, persistReducer, persistStore} from 'redux-persist';
 import storage from '@react-native-async-storage/async-storage'; // Use appropriate storage library
 
 import searchSlice from '../search-slice';
-import authSlice, { authState } from '../authSlice';
+import authSlice, {authState} from '../authSlice';
 
 // Combine reducers
 const rootReducer = combineReducers({
@@ -27,11 +27,12 @@ const store = configureStore({
   reducer: persistedReducer, // Use the persisted reducer
   devTools: process.env.NODE_ENV !== 'production',
   middleware: getDefaultMiddleware =>
-  getDefaultMiddleware({
-    serializableCheck: {
-      ignoredActions: [PERSIST],
-    },
-  }),});
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [PERSIST],
+      },
+    }),
+});
 
 // Create a persistor object to persist the store
 const persistor = persistStore(store);
@@ -39,4 +40,4 @@ const persistor = persistStore(store);
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-export { store, persistor };
+export {store, persistor};

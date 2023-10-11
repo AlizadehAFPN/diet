@@ -87,10 +87,9 @@ export function FilterModal({
     const tags = type == 'recipes' ? recipesTags : mealsTags;
     const isSelected = tags.findIndex((l: tag) => l === tag);
     if (isSelected > -1) {
-        dispatch(setRecipesTags(tags?.filter((item: tag) => item !== tag)));
-
+      dispatch(setRecipesTags(tags?.filter((item: tag) => item !== tag)));
     } else {
-        dispatch(setRecipesTags(tags.concat(tag)));
+      dispatch(setRecipesTags(tags.concat(tag)));
     }
   };
 

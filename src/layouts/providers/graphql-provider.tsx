@@ -1,7 +1,6 @@
-
-import React, { ReactNode } from 'react'
-import { ApolloProvider } from '@apollo/client';
-import { graphqlInstance } from '../../services/graphqlConfig';
+import React, {ReactNode} from 'react';
+import {ApolloProvider} from '@apollo/client';
+import {graphqlInstance} from '../../services/graphqlConfig';
 interface GraphQlProviderPrps {
   children: ReactNode;
 }

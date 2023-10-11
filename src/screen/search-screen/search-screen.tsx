@@ -1,59 +1,65 @@
-import React, {useRef, useState } from 'react';
-import { Button, Screen, Row, Text } from '../../component';
-import { RecipesTab } from './recipes-tab';
-import { MealPlansTab } from './meal-plans-tab';
-import { Dimensions, ScrollView, StyleSheet, TextInput, View, Animated } from 'react-native';
-import { colors } from '../../Styles';
+import React, {useRef, useState} from 'react';
+import {Button, Screen, Row, Text} from '../../component';
+import {RecipesTab} from './recipes-tab';
+import {MealPlansTab} from './meal-plans-tab';
+import {
+  Dimensions,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  View,
+  Animated,
+} from 'react-native';
+import {colors} from '../../Styles';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { useDispatch } from 'react-redux';
-import { setRecipesModal } from '../../redux/search-slice';
+import {useDispatch} from 'react-redux';
+import {setRecipesModal} from '../../redux/search-slice';
 
-const { width } = Dimensions.get("window")
+const {width} = Dimensions.get('window');
 
 export function SearchScreen() {
-  const [text, setText] = useState("")
-  const dispatch = useDispatch()
-  const [activeIndex, setActiveIndex] = useState(0)
-  const scrollRef = useRef<ScrollView>(null)
-  const transX = useRef(new Animated.Value(0)).current
-  
-  const onPressTab = (index: number) => {
-    if(index!==activeIndex) Animated.timing(transX, {
-      toValue: index ? width - 180 : 0,
-      useNativeDriver: true,
-      duration: 500
-    }).start(()=> {
-      scrollRef?.current?.scrollTo({ x: index * width });
-      setActiveIndex(index)
-    })
-    
-  }
-  const onMomentumScrollEnd = ({ nativeEvent }:{nativeEvent: any}) => {
-    const index = Math.round(nativeEvent.contentOffset.x / width);
-    onPressTab(index)
-  }
+  const [text, setText] = useState('');
+  const dispatch = useDispatch();
+  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollRef = useRef<ScrollView>(null);
+  const transX = useRef(new Animated.Value(0)).current;
 
-  const onPressfilter = ()=>{
-    if(activeIndex == 0){
-      dispatch(setRecipesModal(true))
+  const onPressTab = (index: number) => {
+    if (index !== activeIndex) {
+      Animated.timing(transX, {
+        toValue: index ? width - 180 : 0,
+        useNativeDriver: true,
+        duration: 500,
+      }).start(() => {
+        scrollRef?.current?.scrollTo({x: index * width});
+        setActiveIndex(index);
+      });
     }
-  }
+  };
+  const onMomentumScrollEnd = ({nativeEvent}: {nativeEvent: any}) => {
+    const index = Math.round(nativeEvent.contentOffset.x / width);
+    onPressTab(index);
+  };
+
+  const onPressfilter = () => {
+    if (activeIndex == 0) {
+      dispatch(setRecipesModal(true));
+    }
+  };
   return (
     <Screen withoutScroll style={styles.container}>
       <Row style={styles.tabbar}>
         <Button onPress={() => onPressTab(0)} style={styles.tab}>
-          <Text>
-            Ricepes
-          </Text>
+          <Text>Ricepes</Text>
         </Button>
         <Button onPress={() => onPressTab(1)} style={styles.tab}>
-          <Text>
-            Meal Plans
-          </Text>
+          <Text>Meal Plans</Text>
         </Button>
       </Row>
-      <View style={{ paddingHorizontal: 15 }}>
-        <Animated.View style={{ ...styles.indicator, transform: [{ translateX: transX }] }} />
+      <View style={{paddingHorizontal: 15}}>
+        <Animated.View
+          style={{...styles.indicator, transform: [{translateX: transX}]}}
+        />
       </View>
 
       <View style={styles.scrollContainer}>
@@ -69,9 +75,7 @@ export function SearchScreen() {
                 <Icon name="close" size={18} color="black" />
               </Button>
             )}
-            <Button
-              onPress={onPressfilter}
-              style={{ ...styles.filterContainer }}>
+            <Button onPress={onPressfilter} style={{...styles.filterContainer}}>
               <Icon name="filter" size={18} color="black" />
             </Button>
           </View>
@@ -83,8 +87,7 @@ export function SearchScreen() {
           scrollEventThrottle={5}
           style={styles.cart}
           pagingEnabled
-          horizontal
-        >
+          horizontal>
           <RecipesTab />
           <MealPlansTab />
         </ScrollView>
@@ -96,14 +99,14 @@ export function SearchScreen() {
 // Styles and other definitions here
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  stack: { backgroundColor: 'transparent' },
+  container: {flex: 1},
+  stack: {backgroundColor: 'transparent'},
   scrollContainer: {
     flex: 1,
     width,
     backgroundColor: colors.lightGreen,
   },
-  flashStyle: { paddingHorizontal: 15 },
+  flashStyle: {paddingHorizontal: 15},
   cart: {
     backgroundColor: 'white',
     paddingTop: 20,
@@ -137,7 +140,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 3,
     shadowColor: 'black',
-    shadowOffset: { width: 2, height: 2 },
+    shadowOffset: {width: 2, height: 2},
     shadowOpacity: 0.2,
     shadowRadius: 2,
   },
@@ -156,21 +159,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tabbar: {
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
     paddingHorizontal: 15,
-    height: 60
+    height: 60,
   },
   tab: {
     paddingHorizontal: 20,
     height: 60,
-    justifyContent:'center',
+    justifyContent: 'center',
     width: 150,
-    alignItems:'center'
-
+    alignItems: 'center',
   },
   indicator: {
     height: 3,
     width: 150,
-    backgroundColor: 'black'
-  }
+    backgroundColor: 'black',
+  },
 });

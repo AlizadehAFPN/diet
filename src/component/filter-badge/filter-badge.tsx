@@ -2,12 +2,12 @@ import {StyleSheet} from 'react-native';
 import React, {useMemo} from 'react';
 import {colors} from '../../Styles';
 import {Button, Text} from '../';
-import { tag } from '../../Interface';
+import {tag} from '../../Interface';
 
-interface FilterBadgePrp{
-  item: tag,
-  selected: [tag]
-  onSelect: (item: tag)=> void
+interface FilterBadgePrp {
+  item: tag;
+  selected: [tag];
+  onSelect: (item: tag) => void;
 }
 export function FilterBadge({item, selected, onSelect}: FilterBadgePrp) {
   const isSelected = useMemo(

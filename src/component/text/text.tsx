@@ -12,12 +12,7 @@ import {colors} from '../../Styles';
  */
 export function Text(props: TextProps) {
   // grab the props
-  const {
-    text,
-    children,
-    style: styleOverride,
-    ...rest
-  } = props;
+  const {text, children, style: styleOverride, ...rest} = props;
 
   const content = text || children;
 
