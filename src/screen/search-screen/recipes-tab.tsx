@@ -37,7 +37,7 @@ export const RecipesTab = () => {
   const {recipesTags, recipesModal} = useSelector((s: RootState) => s.search);
 
   // Function to handle selection of a filter badge
-  const onSelect = (label: tag) => {
+  const onDelete = (label: tag) => {
     // Filter out the selected item and update the Redux state
     const selectedItem: tag[] = recipesTags.filter(
       (item: tag) => item?.id !== label?.id,
@@ -116,7 +116,7 @@ export const RecipesTab = () => {
             recipesTags.map((item: tag) => (
               <FilterBadgeClose
                 key={item.id}
-                onSelect={onSelect}
+                onSelect={onDelete}
                 item={item}
                 selected={[]}
               />

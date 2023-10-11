@@ -5,11 +5,11 @@ import {colors} from '../../Styles';
 import {useDispatch, useSelector} from 'react-redux';
 import {setRecipesTags} from '../../redux/search-slice';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {FilterModalPrp, tag} from '../../Interface';
+import {FilterModalPrp, TagCategory, tag} from '../../Interface';
 import {stylesTab} from './styles';
 import {RootState} from '../../redux/store';
 
-const opts = [
+const offlineOptions: TagCategory[] = [
   {
     title: 'recipe_tag',
     lists: [
@@ -113,7 +113,7 @@ export const FilterModal = ({
         <Divider />
         <Screen style={stylesTab.screen} unsafe>
           {/* Render filter options */}
-          {opts.map((item, indexOpt) => (
+          {offlineOptions.map((item, indexOpt) => (
             <View key={String(indexOpt + 20)}>
               <Text size={18}>{item.title}</Text>
               <Divider height={8} />

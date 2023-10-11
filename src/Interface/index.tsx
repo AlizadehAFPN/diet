@@ -8,6 +8,17 @@ export interface ImageType {
   brightness: string;
 }
 
+interface TagItem {
+  id: string;
+  type: string;
+  title: string;
+}
+
+export interface TagCategory {
+  title: string;
+  lists: TagItem[];
+}
+
 export interface DifficultyType {
   rating: string;
   value: number;
