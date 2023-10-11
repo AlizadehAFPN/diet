@@ -13,7 +13,6 @@ import {colors} from '../../Styles';
 export function Text(props: TextProps) {
   // grab the props
   const {
-    preset = 'default',
     text,
     children,
     style: styleOverride,
@@ -22,9 +21,7 @@ export function Text(props: TextProps) {
 
   const content = text || children;
 
-  const style = presets[preset] || presets.default;
   const styles = [
-    style,
     {
       color: props.color ? props.color : colors.text,
       fontSize: props.size,

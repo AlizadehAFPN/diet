@@ -71,9 +71,6 @@ export function TopTabBar({state, descriptors, navigation}: any) {
           <Button
             onPress={() =>
               onPressFilter()
-              // navigation.navigate('filter', {
-              //   type: state.index === 0 ? 'recipes' : 'meals',
-              // })
             }
             style={{...styles.filterContainer}}>
             <Icon name="filter" size={18} color="black" />

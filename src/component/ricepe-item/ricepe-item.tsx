@@ -1,27 +1,32 @@
-import {Animated, Dimensions, Easing, Image, StyleSheet, View} from 'react-native';
+import {
+  Animated,
+  Dimensions,
+  Easing,
+  Image,
+  StyleSheet,
+  View,
+} from 'react-native';
 import React from 'react';
 import {Row, Button, Text, Divider} from '../';
 import {colors} from '../../Styles';
-import  Icon  from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/AntDesign';
 import FastImage from 'react-native-fast-image';
-import { Recipe } from '../../Interface';
 
 const {width} = Dimensions.get('window');
-interface RicepeItemPrp{
+interface RicepeItemPrp {
   images: any;
   title: string;
   difficulty: any;
   time: any;
-  item: Recipe;
 }
-export function RicepeItem({item}:{item:RicepeItemPrp}) {
+export function RicepeItem({item}: {item: RicepeItemPrp}) {
   return (
     <Row style={styles.container}>
       <View style={styles.imgContainer}>
         <FastImage
           style={styles.img}
           source={{
-            uri: `https://i.dietdoctor.com${item.images.vt}`,
+            uri: `https://i.dietdoctor.com${item.images.vt}?auto=compress%2Cformat`,
           }}
         />
         <View style={styles.outerBadge}>
@@ -66,7 +71,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
   },
-  iconClock:{marginRight: 8},
+  iconClock: {marginRight: 8},
   img: {width: width / 3, height: width / 3},
   imgContainer: {
     width: width / 3,

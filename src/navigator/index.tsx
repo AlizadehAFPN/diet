@@ -1,7 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigatorParamList, loginInterface} from '../Interface';
-import {FilterScreen, SearchScreen} from '../screen';
+import {SearchScreen} from '../screen';
 import {useDispatch, useSelector} from 'react-redux';
 import {useQuery} from 'react-query';
 import {tempLogin} from '../services';
@@ -36,7 +36,6 @@ const AppNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="search" component={SearchScreen} />
-      <Stack.Screen name="filter" component={FilterScreen} />
     </Stack.Navigator>
   );
 };
