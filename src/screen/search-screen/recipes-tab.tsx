@@ -1,5 +1,5 @@
-import React, {useCallback, useEffect} from 'react';
-import {ActivityIndicator, FlatList, SafeAreaView, View} from 'react-native';
+import React, {useCallback, useEffect, useRef} from 'react';
+import {ActivityIndicator, SafeAreaView, View} from 'react-native';
 import {FilterBadgeClose, RecipeItem, Text} from '../../component';
 import {useDispatch, useSelector} from 'react-redux';
 import {setRecipesModal, setRecipesTags} from '../../redux/search-slice';
@@ -16,7 +16,7 @@ import {queryOptions} from '../../constant';
 export const RecipesTab = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = React.useState(false);
-  const flashListRef = React.useRef<any>(null);
+  const flashListRef = useRef<FlashList<Recipe> | null>(null);
   // Function to render each recipe item
   const renderItem = ({item}: {item: Recipe}) => (
     <RecipeItem item={item} key={String(item?.id)} />
@@ -32,7 +32,7 @@ export const RecipesTab = () => {
       (item: tag) => item?.id !== label?.id,
     );
     dispatch(setRecipesTags(selectedItem));
-    onScrollToTp()
+    onScrollToTp();
   };
 
   // Use Apollo Client's useQuery hook to fetch data
@@ -80,12 +80,12 @@ export const RecipesTab = () => {
   // Function to handle modal closure
   const handleCloseModal = () => {
     dispatch(setRecipesModal(false));
-    onScrollToTp()
+    onScrollToTp();
   };
 
   const onScrollToTp = () => {
-    flashListRef?.current?.scrollToOffset({ animated: true, offset: 0 })
-  }
+    flashListRef?.current?.scrollToOffset({animated: true, offset: 0});
+  };
 
   // Define a separator component for the recipe items
   const ItemSeparatorComponent = useCallback(
