@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Animated, StyleSheet} from 'react-native';
-import { colors } from '../Styles';
+import {colors} from '../Styles';
 
 export function WithSplashScreen({
   children,
