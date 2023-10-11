@@ -47,7 +47,7 @@ const offlineOptions: TagCategory[] = [
     ],
   },
   {
-    title: 'energy',
+    title: 'energy-1',
     lists: [
       {
         id: 'wp-us-tag-3',
@@ -113,15 +113,15 @@ export const FilterModal = ({
         <Divider />
         <Screen style={stylesTab.screen} unsafe>
           {/* Render filter options */}
-          {offlineOptions.map((item, indexOpt) => (
-            <View key={String(indexOpt + 20)}>
+          {offlineOptions.map(item => (
+            <View key={String(item?.title)}>
               <Text size={18}>{item.title}</Text>
               <Divider height={8} />
               <View style={stylesTab.section}>
-                {item.lists.map((elem, index) => (
+                {item.lists.map(elem => (
                   // Render FilterBadge components for each tag
                   <FilterBadge
-                    key={String(index + 100)}
+                    key={String(elem?.title)}
                     selected={type === 'recipes' ? recipesTags : mealsTags}
                     onSelect={handleSelect}
                     item={elem}

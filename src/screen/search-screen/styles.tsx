@@ -18,15 +18,15 @@ export const stylesTab = StyleSheet.create({
   },
   cartRecipe: {
     backgroundColor: 'white',
-    paddingTop: 20,
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
+    paddingTop: 16,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
     overflow: 'hidden',
   },
   box: {
     backgroundColor: colors.lightGreen,
     paddingHorizontal: 16,
-    paddingVertical: 20,
+    paddingVertical: 16,
   },
   inputContainer: {
     flexDirection: 'row',
@@ -50,12 +50,12 @@ export const stylesTab = StyleSheet.create({
     paddingHorizontal: 16,
     height: 60,
     justifyContent: 'center',
-    width: 150,
+    width: Dimensions.get('window').width / 3,
     alignItems: 'center',
   },
   indicator: {
     height: 3,
-    width: 150,
+    width: Dimensions.get('window').width / 3,
     backgroundColor: colors.text,
   },
   container: {
@@ -66,6 +66,7 @@ export const stylesTab = StyleSheet.create({
   },
   cart: {
     flex: 1,
+    paddingTop: 16,
   },
   screenContainer: {
     flex: 1,
@@ -92,7 +93,7 @@ export const stylesTab = StyleSheet.create({
     left: 16,
     right: 16,
     height: 50,
-    bottom: 80,
+    bottom: 60,
     borderRadius: 30,
     backgroundColor: 'green',
     justifyContent: 'center',

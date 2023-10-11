@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from 'react';
 import {ActivityIndicator, SafeAreaView, View} from 'react-native';
-import {FilterBadgeClose, RecipeItem} from '../../component';
+import {FilterBadgeClose, RecipeItem, Text} from '../../component';
 import {useDispatch, useSelector} from 'react-redux';
 import {setRecipesModal, setRecipesTags} from '../../redux/search-slice';
 import {FlashList} from '@shopify/flash-list';
@@ -10,18 +10,7 @@ import {GetRecipes} from '../../services/graphQluries';
 import {FilterModal} from './filter-modal';
 import {RootState} from '../../redux/store';
 import {stylesTab} from './styles';
-
-// Query options for fetching recipes
-const queryOptions = {
-  variables: {
-    page: 1,
-    pageSize: 20,
-    tagFilters: [],
-    premiumOnly: false,
-    notifyOnNetworkStatusChange: true,
-    includePremiumPreview: false,
-  },
-};
+import { queryOptions } from '../../constant';
 
 // RecipesTab component
 export const RecipesTab = () => {
@@ -29,8 +18,8 @@ export const RecipesTab = () => {
   const [isLoading, setIsLoading] = React.useState(false);
 
   // Function to render each recipe item
-  const renderItem = ({item, index}: {item: Recipe; index: number}) => (
-    <RecipeItem item={item} key={String(index + 50)} />
+  const renderItem = ({item}: {item: Recipe}) => (
+    <RecipeItem item={item} key={String(item?.id)} />
   );
 
   // Get recipesTags and recipesModal from the Redux store
@@ -110,6 +99,7 @@ export const RecipesTab = () => {
 
   return (
     <SafeAreaView style={stylesTab.container}>
+      <Text mx={24}>{data?.listRecipes?.totalSize} - Recipe</Text>
       <View style={stylesTab.cart}>
         <View style={stylesTab.fc}>
           {recipesTags.length > 0 &&
