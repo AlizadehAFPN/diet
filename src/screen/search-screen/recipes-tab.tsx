@@ -39,7 +39,7 @@ export const RecipesTab = () => {
     GetRecipes,
     queryOptions,
   );
-  console.log(loading, 'loading');
+
   // Function to handle reaching the end of the list
   const onEndReached = () => {
     if (data?.listRecipes?.nextPage) {
