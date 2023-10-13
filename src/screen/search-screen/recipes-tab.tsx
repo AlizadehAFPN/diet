@@ -15,7 +15,6 @@ import {queryOptions} from '../../constant';
 // RecipesTab component
 export const RecipesTab = () => {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = React.useState(false);
   const flashListRef = useRef<FlashList<Recipe> | null>(null);
   // Function to render each recipe item
   const renderItem = ({item}: {item: Recipe}) => (
@@ -36,13 +35,14 @@ export const RecipesTab = () => {
   };
 
   // Use Apollo Client's useQuery hook to fetch data
-  const {data, refetch, fetchMore} = useQuery(GetRecipes, queryOptions);
-
+  const {loading, data, refetch, fetchMore} = useQuery(
+    GetRecipes,
+    queryOptions,
+  );
+  console.log(loading, 'loading');
   // Function to handle reaching the end of the list
   const onEndReached = () => {
     if (data?.listRecipes?.nextPage) {
-      setIsLoading(true); // Set loading state to true
-
       fetchMore({
         variables: {...queryOptions, page: data?.listRecipes?.nextPage},
         updateQuery: (previousResult, {fetchMoreResult}) => {
@@ -61,20 +61,17 @@ export const RecipesTab = () => {
             },
           };
         },
-      }).then(() => {
-        setIsLoading(false); // Reset loading state when finished
       });
     }
   };
 
   // Use the useEffect hook to refetch data when recipesTags change
   useEffect(() => {
-    setIsLoading(true);
     refetch({
       page: 1,
       pageSize: 20,
       tagFilters: recipesTags.map((item: tag) => item?.id),
-    }).then(() => setIsLoading(false));
+    });
   }, [recipesTags, refetch]);
 
   // Function to handle modal closure
@@ -118,7 +115,7 @@ export const RecipesTab = () => {
           estimatedItemSize={160}
           keyExtractor={item => item.id}
           data={data?.listRecipes?.recipes}
-          ListFooterComponent={<>{isLoading && <ActivityIndicator />}</>}
+          ListFooterComponent={<>{loading && <ActivityIndicator />}</>}
           ItemSeparatorComponent={ItemSeparatorComponent}
         />
       </View>
@@ -127,7 +124,7 @@ export const RecipesTab = () => {
         resultNumbs={data?.listRecipes?.totalSize}
         type="recipes"
         onClose={handleCloseModal}
-        loading={isLoading}
+        loading={loading}
       />
     </SafeAreaView>
   );

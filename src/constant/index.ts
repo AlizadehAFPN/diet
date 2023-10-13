@@ -10,6 +10,7 @@ export const queryOptions = {
     notifyOnNetworkStatusChange: true,
     includePremiumPreview: false,
   },
+  notifyOnNetworkStatusChange: true,
 };
 
 export const offlineOptions: TagCategory[] = [
